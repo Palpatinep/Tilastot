@@ -24,7 +24,7 @@ const fifaRouter = require("./routes/fifarouter");
 const biljardiRouter = require("./routes/biljardirouter");
 
 app.use(expresslayouts);
-app.use(express.static, (__dirname + "/public");)
+app.use(express.static, (__dirname + "/public"));
 app.use("/", indexRouter);
 app.use("/fifa", fifaRouter);
 app.use("/biljardi", biljardiRouter);
