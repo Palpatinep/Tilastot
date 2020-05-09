@@ -4,24 +4,25 @@ const Fifa = require("../models/fifa");
 
 router.get("/", async (req, res) =>
 {
-    let searchOptions = {};
-    if (req.query.result != null && req.query.result !== '')
-    {
-        searchOptions.result = new RegExp(req.query.result, 'i')
-    };
-    try
-    {
-        const fifaResults = await Fifa.find(searchOptions);
-        res.render("fifaview/index", 
-        {
-            fifaResults: fifaResults,
-            searchOptions: req.query
-        });
-    }
-    catch
-    {
-        res.redirect("/");
-    }
+    // let searchOptions = {};
+    // if (req.query.result != null && req.query.result !== '')
+    // {
+    //     searchOptions.result = new RegExp(req.query.result, 'i')
+    // };
+    // try
+    // {
+    //     const fifaResults = await Fifa.find(searchOptions);
+    //     res.render("fifaview/index", 
+    //     {
+    //         fifaResults: fifaResults,
+    //         searchOptions: req.query
+    //     });
+    // }
+    // catch
+    // {
+    //     res.redirect("/");
+    // }
+    res.render("fifaview/index");
 
 });
 
@@ -29,7 +30,8 @@ router.post("/", async (req, res) =>
 {
     const fifaResult = new Fifa(
         {
-            result: req.body.fifaresult
+            resultHome: req.body.fifaresulthome,
+            resultAway: req.body.fifaresultaway
         }
     );
     try
