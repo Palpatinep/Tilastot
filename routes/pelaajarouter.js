@@ -4,8 +4,16 @@ const Pelaaja = require("../models/pelaaja");
 
 router.get("/", async (req, res) =>
 {
-    res.render("pelaajaview/index");
+    let searchOptions = {};
+    searchOptions.playerName = new RegExp(req.query.playerName, "i");
 
+    const pelaajat = await Pelaaja.find(searchOptions);
+
+    res.render("pelaajaview/index", 
+    {
+        pelaajat: pelaajat,
+        searchOptions: req.query
+    });
 });
 
 router.post("/", async (req, res) =>
@@ -19,7 +27,7 @@ router.post("/", async (req, res) =>
     {
         const newPelaajaSubmit = await newPelaaja.save();
         console.log("New player created");
-        res.redirect("/biljardi");
+        res.redirect("/fifa");
     }
     catch
     {

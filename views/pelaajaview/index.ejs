@@ -8,5 +8,9 @@
 <body>
     <h1>Pelaajat</h1>
     <%- include ("_form_fields.ejs") %>
+
+    <% pelaajat.forEach(element => { %>
+        <div><%= element %></div>
+    <% })   %> 
 </body>
 </html>
