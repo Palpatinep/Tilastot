@@ -1,6 +1,17 @@
 <label>Tulos</label>
 
 <form action="fifa" method="POST">
+<label>Pelaaja</label>
+<select name="pelaaja">
+
+<% pelaaja.forEach(element => { %>
+<option label=" <%= element %>" value="pelaaja">
+<% }) %>
+
+</select>
+
+
+<br>
 <!--  fifaResults is defined in fifarouter -> get"/" -> const fifaResults  --> 
 <input type="number" name="fifaresulthome" value="">
 <input type="number" name="fifaresultaway" value="">

@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Fifa = require("../models/fifa");
+const Pelaaja = require("../models/pelaaja");
 
 router.get("/", async (req, res) =>
 {
+    const pelaaja = ["panu", "arza"];
     let searchOptions = {};
     if (req.query.resultHome != null && req.query.resultAway != null && req.query.resultHome !== '' && req.query.resultAway !== '')
     {
@@ -15,6 +17,7 @@ router.get("/", async (req, res) =>
         const fifaResults = await Fifa.find(searchOptions);
         res.render("fifaview/index", 
         {
+            pelaaja: pelaaja,
             fifaResults: fifaResults,
             searchOptions: req.query
         });

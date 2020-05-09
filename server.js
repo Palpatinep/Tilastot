@@ -22,6 +22,7 @@ app.set("layout", "layouts/indexlayout");
 const indexRouter = require("./routes/index");
 const fifaRouter = require("./routes/fifarouter");
 const biljardiRouter = require("./routes/biljardirouter");
+const pelaajaRouter = require("./routes/pelaajarouter");
 
 app.use(expresslayouts);
 app.use(express.static("public"));
@@ -29,6 +30,6 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use("/", indexRouter);
 app.use("/fifa", fifaRouter);
 app.use("/biljardi", biljardiRouter);
-
+app.use("/pelaaja", pelaajaRouter);
 
 app.listen(process.env.PORT || 3000);
