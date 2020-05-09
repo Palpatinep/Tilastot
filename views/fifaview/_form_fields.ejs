@@ -1,13 +1,20 @@
-<label>Tulos</label>
-
 <form action="fifa" method="POST">
-<label>Pelaaja</label>
-<select name="pelaaja">
+<label>Pelaaja1</label>
+<select name="pelaajahome">
 
 <% pelaaja.forEach(element => { %>
-<option label=" <%= element %>" value="pelaaja">
+<option label=" <%= element %>" value="<%= element %>">
 <% }) %>
 
+</select>
+
+<label>Pelaaja2</label>
+<select name="pelaajaaway">
+
+    <% pelaaja.forEach(element => { %>
+    <option label=" <%= element %>" value="<%= element %>">
+    <% }) %>
+    
 </select>
 
 

@@ -7,12 +7,15 @@
 </head>
 <body>
     <h1>FIFA tilastot</h1>
+    <label>Tulos</label>
     <%- include ("_form_fields.ejs") %>
 
     <!--  fifaResults is defined in fifarouter -> get"/" -> const fifaResults  --> 
     <% fifaResults.forEach(fifa => { %>
         <div><%= fifa.resultHome %></div>
         <div><%= fifa.resultAway %></div>
+        <div><%= fifa.pelaajaHome %></div>
+        <div><%= fifa.pelaajaAway %></div>
       <% }) %>
 </body>
 </html>

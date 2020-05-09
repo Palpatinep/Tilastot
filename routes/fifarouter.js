@@ -11,6 +11,8 @@ router.get("/", async (req, res) =>
     {
         searchOptions.resultHome = new RegExp(req.query.resultHome, 'i')
         searchOptions.resultAway = new RegExp(req.query.resultAway, 'i')
+        searchOptions.pelaajaHome = new new RegExp(req.query.pelaajaHome, 'i')
+        searchOptions.pelaajaAway = new new RegExp(req.query.pelaajaAway, 'i')
     };
     try
     {
@@ -35,7 +37,9 @@ router.post("/", async (req, res) =>
     const fifaResult = new Fifa(
         {
             resultHome: req.body.fifaresulthome,
-            resultAway: req.body.fifaresultaway
+            resultAway: req.body.fifaresultaway,
+            pelaajaHome: req.body.pelaajahome,
+            pelaajaAway: req.body.pelaajaaway
         }
     );
     try
