@@ -9,6 +9,10 @@
     <h1>FIFA tilastot</h1>
     <%- include ("_form_fields.ejs") %>
 
-
+    <!--  fifaResults is defined in fifarouter -> get"/" -> const fifaResults  --> 
+    <% fifaResults.forEach(fifa => { %>
+        <div><%= fifa.resultHome %></div>
+        <div><%= fifa.resultAway %></div>
+      <% }) %>
 </body>
 </html>
