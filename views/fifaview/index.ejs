@@ -7,5 +7,10 @@
 </head>
 <body>
     <h1>FIFA tilastot</h1>
+    <%- include ("_form_fields.ejs") %>
+
+    <% fifaResults.forEach(fifa => { %>
+        <div><%= fifa.result %></div>
+      <% }) %>
 </body>
 </html>

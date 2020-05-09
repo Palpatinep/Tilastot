@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const fifaSchema = new mongoose.Schema({
 
-    tulos:{
-        type: Number,
+    result:{
+        type: String,
         required: true
     }
 });
