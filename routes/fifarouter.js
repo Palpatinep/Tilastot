@@ -91,6 +91,16 @@ router.post("/", async (req, res) =>
     try
     {
         const newFifaResult = await fifaResult.save();
+
+        var asd = WinnerPlayer;
+        var playerquery = { playerName: WinnerPlayer};
+        var newWinNumber = { $inc: {fifaWins: 1}};
+
+        await Pelaaja.updateOne(playerquery, newWinNumber);
+
+        
+        
+        
         console.log("Success");
         res.redirect("/fifa");
     }

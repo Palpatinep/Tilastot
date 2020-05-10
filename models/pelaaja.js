@@ -14,6 +14,10 @@ const pelaajaSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
+    fifaDraws:{
+        type: Number,
+        required: false
+    },
     biljardiWins:{
         type: Number,
         required: false
