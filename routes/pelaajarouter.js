@@ -5,9 +5,11 @@ const Pelaaja = require("../models/pelaaja");
 router.get("/", async (req, res) =>
 {
     let searchOptions = {};
+    
     searchOptions.playerName = new RegExp(req.query.playerName, "i");
-
+    
     const pelaajat = await Pelaaja.find(searchOptions);
+
 
     res.render("pelaajaview/index", 
     {
@@ -18,6 +20,7 @@ router.get("/", async (req, res) =>
 
 router.post("/", async (req, res) =>
 {
+
     const newPelaaja = new Pelaaja(
     {
         playerName: req.body.pelaajaname,

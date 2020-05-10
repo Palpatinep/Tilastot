@@ -8,15 +8,18 @@
 <body>
     <h1>Pelaajat</h1>
 
-    </select>
 
-    <label>Pelaaja</label>
-    <select name="pelaajabase">
-
-        <% pelaajat.forEach(element => { %>
-        <option label=" <%= element.playerName %> & <%= element.fifaWins %>" value="<%= element.playerName %>">
-        <% }) %>
-        
+    <form action="pelaaja" method="POST">
+        <label>Pelaaja</label>
+        <select name="pelaajabase">
+    
+            <% pelaajat.forEach(element => { %>
+            <option label="<%= element.playerName %>" value="<%= element.playerName %>">
+            <% }) %>
+            
+        </select>
+        <button type="submit" >OK</button>
+    </form>
     </select>
 
 
