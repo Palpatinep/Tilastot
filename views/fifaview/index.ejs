@@ -11,11 +11,9 @@
     <%- include ("_form_fields.ejs") %>
 
     <!--  fifaResults is defined in fifarouter -> get"/" -> const fifaResults  --> 
-    <% fifaResults.forEach(fifa => { %>
-        <div><%= fifa.resultHome %></div>
-        <div><%= fifa.resultAway %></div>
-        <div><%= fifa.pelaajaHome %></div>
-        <div><%= fifa.pelaajaAway %></div>
+    <% fifaResults.forEach(element => { %>
+        <div><%= element.resultHome %> - <%= element.resultAway %></div>
+        <div>Winner: <%= element.winner %>, Loser: <%= element.loser %>, Lumierät: <%= element.lumierat%></div>
       <% }) %>
 </body>
 </html>

@@ -18,6 +18,18 @@ const fifaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    winner:{
+        type: String,
+        required: false
+    },
+    loser:{
+        type: String,
+        required: false
+    },
+    lumierat:{
+        type: Boolean,
+        required: false
+    }
 });
 
 module.exports = mongoose.model("Fifa", fifaSchema);

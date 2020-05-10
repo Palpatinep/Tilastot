@@ -5,23 +5,34 @@ const Pelaaja = require("../models/pelaaja");
 
 router.get("/", async (req, res) =>
 {
-    const pelaajat = await Pelaaja.find( { }, {_id: 0, playerName: 1});
-    let searchOptions = {};
+    
+    let searchOptionsFifa = {};
+    let searchOptionsPelaaja = {};
+
+    searchOptionsPelaaja.playerName = new RegExp(req.query.playerName, "i");
+
     if (req.query.resultHome != null && req.query.resultAway != null && req.query.resultHome !== '' && req.query.resultAway !== '')
     {
-        searchOptions.resultHome = new RegExp(req.query.resultHome, 'i')
-        searchOptions.resultAway = new RegExp(req.query.resultAway, 'i')
-        searchOptions.pelaajaHome = new new RegExp(req.query.pelaajaHome, 'i')
-        searchOptions.pelaajaAway = new new RegExp(req.query.pelaajaAway, 'i')
+        searchOptionsFifa.resultHome = new RegExp(req.query.resultHome, 'i')
+        searchOptionsFifa.resultAway = new RegExp(req.query.resultAway, 'i')
+        searchOptionsFifa.pelaajaHome = new RegExp(req.query.pelaajaHome, 'i')
+        searchOptionsFifa.pelaajaAway = new RegExp(req.query.pelaajaAway, 'i')
+        searchOptionsFifa.winner = new RegExp(req.query.winner, 'i')
+        searchOptionsFifa.loser = new RegExp(req.query.loser, 'i')
     };
+
+    const pelaajat = await Pelaaja.find(searchOptionsPelaaja);
+    
+
     try
     {
-        const fifaResults = await Fifa.find(searchOptions);
+        const fifaResults = await Fifa.find(searchOptionsFifa);
+
         res.render("fifaview/index", 
         {
             pelaaja: pelaajat,
             fifaResults: fifaResults,
-            searchOptions: req.query
+            searchOptionsFifa: req.query
         });
     }
     catch
@@ -34,12 +45,47 @@ router.get("/", async (req, res) =>
 
 router.post("/", async (req, res) =>
 {
+    var WinnerPlayer = "";
+    var LoserPlayer = "";
+    var lumierat = false;
+    var asd = 3;
+    var asdasdasd;
+
+    if(req.body.fifaresulthome > req.body.fifaresultaway)
+    {
+        WinnerPlayer = req.body.pelaajahome;
+        LoserPlayer = req.body.pelaajaaway;
+        console.log("Voittaja");
+    }
+    else if(req.body.fifaresulthome < req.body.fifaresultaway)
+    {
+        WinnerPlayer = req.body.pelaajaaway;
+        LoserPlayer = req.body.pelaajahome;
+        console.log("Häviäjä");
+    }
+    else
+    {
+        WinnerPlayer = "draw";
+        LoserPlayer = "draw";
+        console.log("Tasapeli");
+    }
+
+    if(parseInt(req.body.fifaresulthome) > parseInt(req.body.fifaresultaway) + 2 || parseInt(req.body.fifaresulthome) + 2 < parseInt(req.body.fifaresultaway))
+    {
+        lumierat = true;
+    }
+
+    console.log(req.body.fifaresultaway)
+
     const fifaResult = new Fifa(
         {
             resultHome: req.body.fifaresulthome,
             resultAway: req.body.fifaresultaway,
             pelaajaHome: req.body.pelaajahome,
-            pelaajaAway: req.body.pelaajaaway
+            pelaajaAway: req.body.pelaajaaway,
+            winner: WinnerPlayer,
+            loser: LoserPlayer,
+            lumierat: lumierat
         }
     );
     try
@@ -52,6 +98,7 @@ router.post("/", async (req, res) =>
     {
         res.render("/biljardi");
         errorMessage: "Virheellinen syöte"
+        console.log("Virheellinen syöte");
     }
 });
 
