@@ -47,6 +47,8 @@ router.post("/", async (req, res) =>
 {
     var WinnerPlayer = "";
     var LoserPlayer = "";
+    var DrawnPlayer1 = "";
+    var DrawnPlayer2 = "";
     var lumierat = false;
     var asd = 3;
     var asdasdasd;
@@ -65,8 +67,8 @@ router.post("/", async (req, res) =>
     }
     else
     {
-        WinnerPlayer = "draw";
-        LoserPlayer = "draw";
+        DrawnPlayer1 = req.body.pelaajahome;
+        DrawnPlayer2 = req.body.pelaajaaway;
         console.log("Tasapeli");
     }
 
@@ -92,14 +94,17 @@ router.post("/", async (req, res) =>
     {
         const newFifaResult = await fifaResult.save();
 
-        var asd = WinnerPlayer;
-        var playerquery = { playerName: WinnerPlayer};
+        var playerquerywinner = { playerName: WinnerPlayer};
+        var playerqueryloser = { playerName: LoserPlayer};
+        var playerquerydraw1 = { playerName: DrawnPlayer1};
+        var playerquerydraw2 = { playerName: DrawnPlayer2};
         var newWinNumber = { $inc: {fifaWins: 1}};
-
-        await Pelaaja.updateOne(playerquery, newWinNumber);
-
-        
-        
+        var newLossNumber = { $inc: {fifaLosses: 1}};
+        var newDrawNumber = { $inc: {fifaDraws: 1}};
+        await Pelaaja.updateOne(playerquerywinner, newWinNumber);
+        await Pelaaja.updateOne(playerqueryloser, newLossNumber);
+        await Pelaaja.updateOne(playerquerydraw1, newDrawNumber);
+        await Pelaaja.updateOne(playerquerydraw2, newDrawNumber);      
         
         console.log("Success");
         res.redirect("/fifa");

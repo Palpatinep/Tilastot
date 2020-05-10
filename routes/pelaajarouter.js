@@ -20,14 +20,17 @@ router.post("/", async (req, res) =>
 {
     const newPelaaja = new Pelaaja(
     {
-        playerName: req.body.pelaajaname
+        playerName: req.body.pelaajaname,
+        fifaWins: 0,
+        fifaLosses: 0,
+        fifaDraws: 0
     });
 
     try
     {
-        const newPelaajaSubmit = await newPelaaja.save();
+        await newPelaaja.save();
         console.log("New player created");
-        res.redirect("/fifa");
+        res.redirect("/pelaaja");
     }
     catch
     {
