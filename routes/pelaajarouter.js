@@ -6,17 +6,16 @@ router.get("/", async (req, res) =>
 {
     let searchOptions = {};
     
-    searchOptions.playerName = new RegExp(req.query.playerName, "i");
-    
     const pelaajat = await Pelaaja.find(searchOptions);
 
-
+     
     res.render("pelaajaview/index", 
     {
         pelaajat: pelaajat,
         searchOptions: req.query
     });
 });
+
 
 router.post("/", async (req, res) =>
 {
