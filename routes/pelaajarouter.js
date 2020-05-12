@@ -42,4 +42,41 @@ router.post("/", async (req, res) =>
     
 });
 
+router.get("/Arza", async (req, res) =>
+{
+    let searchOptionsPelaaja = {playerName: "Arza"};
+
+    const pelaajat = await Pelaaja.find(searchOptionsPelaaja).exec()
+    .then(doc => 
+        {
+            console.log(doc)
+            res.status(200).json(doc);
+        });
+
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    res.redirect("/pelaaja");
+
+
+
+});
+
+
+router.get("/Panu", async (req, res) =>
+{
+    let searchOptionsPelaaja = {playerName: "Panu"};
+
+    const pelaajat = await Pelaaja.find(searchOptionsPelaaja).exec()
+    .then(doc => 
+        {
+            console.log(doc)
+            res.status(200).json(doc);
+        });
+
+    console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+    res.redirect("/pelaaja");
+
+
+
+});
+
 module.exports = router;

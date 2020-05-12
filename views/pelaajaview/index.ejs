@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
     <h1>Pelaajat</h1>
 
     <form method="POST">
         <label>Pelaaja</label>
-        <select name="pelaajabase">
+        <select id="pelaajabase" name="pelaajabase">
     
             <% pelaajat.forEach(element => { %>
             <option label="<%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             
         </select>
-        <button type="submit" >OK</button>
+        <button type="submit">OK</button>
     </form>
     </select>
 
+    <button type="submit" id="okbutton">OK OK</button>
 
     <% pelaajat.forEach(element => { %>
         <div> <%= element.playerName %> & <%= element.fifaWins %> </div>
@@ -35,21 +38,48 @@
         <div><%= pelaajat[1].playerName %></div>
 
 
+        <ul id="statsit">Statsit:</ul>
 
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
+    <div id="testi">Testi</div>
 
+    <script>
+        document.getElementById("testi").innerHTML = document.getElementById("pelaajabase").value;
+    </script>>
 
     <%- include ("_form_fields.ejs") %>
 
     <% pelaajat.forEach(element => { %>
         <div><%= element %></div>
     <% })   %> 
+
+    <script>
+        $(function() {
+
+            $('#okbutton').on('click', function() {
+
+                $.ajax({
+                        type: "GET",
+                        url: "/pelaaja/" + document.getElementById("pelaajabase").value,
+                        dataType: "json",
+                        success: function(pelaajat)
+                        {
+                            $.each(pelaajat, function(i, pelaaja)
+                            {
+                                $("#statsit").append("<li>Player Name: "+ pelaaja.playerName +", FIFA Wins: "+ pelaaja.fifaWins + " </li>")
+                            })
+
+
+                            console.log("success", pelaajat);
+                        }          
+                });
+            });
+        });
+    </script>
+
+
 </body>
 </html>

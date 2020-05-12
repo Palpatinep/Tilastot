@@ -1,22 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport", initial-scale=1.0">
-        <script
-            src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
-        </script>
-        <script src="D:\Panu\Documents\Visual Studio\Tilastot\routes\biljardirouter.js" ></script>
-    <title>Document</title>
+    <title>AJAX</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
-
-
-
 <body>
-    <h1>Biljardi tilastot</h1>
+    <h1>AJAX</h1>
+    <h2 id="testtext">Test text</h2>
+    <h2 id="testtext2">Test text 2</h2>
+    <h2 id="testtext3">Test text 3</h2>
+    <h2 id="testtext4">Test text 4</h2>
+    <h2 id="testtext5">Test text 5</h2>
+
+    <button id="get-button">TRY</button>
+
+    <ul id="pelaajalista"></ul>
+    
 
 
-    <button id="databutton">DATA</button>
+    <script>
+        $(function() {
+
+            $('#get-button').on('click', function() {
+
+                $.ajax({
+                        type: "GET",
+                        url: "/biljardi/Arza",
+                        dataType: "json",
+                        success: function(pelaajat)
+                        {
+                            $.each(pelaajat, function(i, pelaaja)
+                            {
+                                $("#pelaajalista").append("<li>Player Name: "+ pelaaja.playerName +", FIFA Wins: "+ pelaaja.fifaWins + " </li>")
+                            })
+
+
+                            console.log("success", pelaajat);
+                        }          
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
