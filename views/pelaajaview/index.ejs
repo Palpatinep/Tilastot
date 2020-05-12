@@ -10,45 +10,35 @@
 <body>
     <h1>Pelaajat</h1>
 
-    <form method="POST">
-        <label>Pelaaja</label>
-        <select id="pelaajabase" name="pelaajabase">
-    
-            <% pelaajat.forEach(element => { %>
-            <option label="<%= element.playerName %>" value="<%= element.playerName %>">
-            <% }) %>
-            
-        </select>
-        <button type="submit">OK</button>
-    </form>
+
+    <select id="pelaajabase" name="pelaajabase">
+
+        <% pelaajat.forEach(element => { %>
+        <option label="<%= element.playerName %>" value="<%= element.playerName %>">
+        <% }) %>
+        
     </select>
 
-    <button type="submit" id="okbutton">OK OK</button>
 
-    <% pelaajat.forEach(element => { %>
-        <div> <%= element.playerName %> & <%= element.fifaWins %> </div>
-        <% }) %>
-<br>
-<br>
-<br>
+    <button type="submit" id="okbutton">OK</button>
 
-        <% const found = pelaajat.find(element => element.playerName = "Panu") %>
-        <div> <%= found.playerName %> & <%= found.fifaWins %> </div>
+    <ul id="statsit">Statsit:</ul>
+    <label id="statsfifawins">Fifa Voitot:</label>
+    <br>
+    <label id="statsfifalosses">Fifa Häviöt:</label>
+    <br>
+    <label id="statsfifadraws">Tasapelit:</label>
+    <br>
+    <label id="statswinperc">Voittoprosentti:</label>
+    <br>
 
-        <div><%= pelaajat[1].playerName %></div>
 
 
-        <ul id="statsit">Statsit:</ul>
 
-<br>
-<br>
-<br>
-<br>
-    <div id="testi">Testi</div>
-
-    <script>
-        document.getElementById("testi").innerHTML = document.getElementById("pelaajabase").value;
-    </script>>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <%- include ("_form_fields.ejs") %>
 
@@ -67,10 +57,19 @@
                         dataType: "json",
                         success: function(pelaajat)
                         {
+                            // $.each(pelaajat, function(i, pelaaja)
+                            // {
+                            //     $("#statsit").append("<li>Player Name: "+ pelaaja.playerName +", FIFA Wins: "+ pelaaja.fifaWins + " </li>")
+                            // })
                             $.each(pelaajat, function(i, pelaaja)
                             {
-                                $("#statsit").append("<li>Player Name: "+ pelaaja.playerName +", FIFA Wins: "+ pelaaja.fifaWins + " </li>")
+                                document.getElementById("statsfifawins").innerHTML = "Fifa Voitot: " + pelaaja.fifaWins;
+                                document.getElementById("statsfifalosses").innerHTML = "Fifa Häviöt: " + pelaaja.fifaLosses;
+                                document.getElementById("statsfifadraws").innerHTML = "Tasapelit: " + pelaaja.fifaDraws;
+                                document.getElementById("statswinperc").innerHTML = "Voittoprosentti: " + (pelaaja.fifaWinPerc * 100) + "%";
                             })
+
+                            
 
 
                             console.log("success", pelaajat);

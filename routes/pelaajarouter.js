@@ -8,7 +8,6 @@ router.get("/", async (req, res) =>
     
     const pelaajat = await Pelaaja.find(searchOptions);
 
-     
     res.render("pelaajaview/index", 
     {
         pelaajat: pelaajat,

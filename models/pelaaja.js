@@ -18,6 +18,10 @@ const pelaajaSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
+    fifaWinPerc:{
+        type: Number,
+        required: false
+    },
     biljardiWins:{
         type: Number,
         required: false

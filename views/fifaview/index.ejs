@@ -8,12 +8,45 @@
 <body>
     <h1>FIFA tilastot</h1>
     <label>Tulos</label>
-    <%- include ("_form_fields.ejs") %>
+    <form action="fifa" method="POST">
 
-    <!--  fifaResults is defined in fifarouter -> get"/" -> const fifaResults  --> 
-    <% fifaResults.forEach(element => { %>
-        <div><%= element.resultHome %> - <%= element.resultAway %></div>
-        <div>Winner: <%= element.winner %>, Loser: <%= element.loser %>, Lumierät: <%= element.lumierat%></div>
-      <% }) %>
+        <% try { %>
+            <label>Pelaaja 1</label>
+            <select name="pelaajahome">
+            <% pelaaja.forEach(element => { %>
+            <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
+            <% }) %>
+            </select>
+        <% } catch (error) { %>
+            <% return true; %>
+        <% } %>
+
+        <% try { %>
+            <label>Pelaaja 2</label>
+            <select name="pelaajaaway">
+            <% pelaaja.forEach(element => { %>
+            <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
+            <% }) %>
+            </select>
+        <% } catch (error) { %>
+            <% return true; %>
+        <% } %>
+    <br>
+    <input type="number" name="fifaresulthome" value="">
+    <input type="number" name="fifaresultaway" value="">
+    <button type="submit">OK</button>
+    </form>
+
+
+
+    <% try { %>
+        <% fifaResults.forEach(element => { %>
+            <div><%= element.resultHome %> - <%= element.resultAway %></div>
+            <div>Winner: <%= element.winner %>, Loser: <%= element.loser %>, Lumierät: <%= element.lumierat%></div>
+          <% }) %>
+    <% } catch (error) { %>
+        <% return true; %>
+    <% } %>
+
 </body>
 </html>
