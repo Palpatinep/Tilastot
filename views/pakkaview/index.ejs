@@ -9,19 +9,42 @@
 <body>
     <h1>Pakka</h1>
     <label id="errormessage"></label>
+
+    <input type="radio" id="easy" name="difficulty" value="easy">
+    <label for="easy">Easy</label>
+    <input type="radio" id="medium" name="difficulty" value="medium">
+    <label for="medium">Medium</label>
+    <input type="radio" id="hard" name="difficulty" value="hard" checked>
+    <label for="Hard">Hard</label>
     
+    <br>
+    <br>
+    <input id="player1nick" value="Pelaaja 1"></input>
+    <input id="player2nick" value="Pelaaja 2"></input>
+    <input id="player3nick" value="Pelaaja 3" style="visibility: hidden"></input>
+
     <div>
         <img id="cardimg1" src="/Card Deck/blue_back.png" style="margin:30px; width: 100px; height: 152px"/>
         <img id="cardimg2" src="/Card Deck/blue_back.png" style="margin:30px; width: 100px; height: 152px"/>
         <img id="cardimg3" src="/Card Deck/blue_back.png" style="visibility: hidden; margin:30px; width: 100px; height: 152px"/>
-        <img id="cardimg4" src="/Card Deck/blue_back.png" style="visibility: hidden; margin:30px; width: 100px; height: 152px"/>
     </div> 
 
+
+    <label id="drinkresultlabel"></label>
+    <br>
+    <label id="cumldrinkresultlabel1"></label>
+    <br>
+    <label id="cumldrinkresultlabel2"></label>
+    <br>
+    <label id="cumldrinkresultlabel3"></label>
+    <br>
     <button id="korttibutton1">Ota kortti</button>
     <br>
     <button id="alustabutton1">Alusta Pakka</button>
     <br>
     <button id="addplayer">Lisää pelaaja</button>
+    <br>
+    <button id="hideplayer" disabled>Poista pelaaja</button>
     <br>
 
     <script>
@@ -30,6 +53,9 @@
 
 
             var playeramount = 2;
+            var cumldrinkamount1 = 0;
+            var cumldrinkamount2 = 0;
+            var cumldrinkamount3 = 0;
 
             var korttipakka1 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
                                  "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
@@ -56,55 +82,61 @@
             var cardamount3 = 52;
             var cardamount4 = 52;
 
+            var rndnum1;
+            var roundedrndnum1;
+            var rndnum2;
+            var roundedrndnum2;
+            var rndnum3;
+            var roundedrndnum3;
+
+
             $("#korttibutton1").on("click", function()
             {
+                
+
                 if (cardamount1 > 0)
                 {
-                    var rndnum1 = Math.random() * (cardamount1 - 1);
-                    var roundedrndnum1 = Math.round(rndnum1);
+                    rndnum1 = Math.random() * (cardamount1 - 1);
+                    roundedrndnum1 = Math.round(rndnum1);
+
+                    
+                    cardamount1 = cardamount1 - 1;
 
                     document.getElementById("cardimg1").src = "/Card Deck/" + korttipakka1[roundedrndnum1] + ".png";
                     document.getElementById("cardimg1").alt = korttipakka1[roundedrndnum1] + ".png";
 
-                    korttipakka1.splice(roundedrndnum1, 1);
-                    cardamount1 = cardamount1 - 1;
+                    rndnum2 = Math.random() * (cardamount2 - 1);
+                    roundedrndnum2 = Math.round(rndnum2);
 
-                    var rndnum2 = Math.random() * (cardamount2 - 1);
-                    var roundedrndnum2 = Math.round(rndnum2);
+                    
+                    cardamount2 = cardamount2 - 1;
 
                     document.getElementById("cardimg2").src = "/Card Deck/" + korttipakka2[roundedrndnum2] + ".png";
                     document.getElementById("cardimg2").alt = korttipakka2[roundedrndnum2] + ".png";
 
-                    korttipakka2.splice(roundedrndnum2, 1);
-                    cardamount2 = cardamount2 - 1;
+                    rndnum3 = Math.random() * (cardamount3 - 1);
+                    roundedrndnum3 = Math.round(rndnum3);
 
-                    var rndnum3 = Math.random() * (cardamount3 - 1);
-                    var roundedrndnum3 = Math.round(rndnum3);
+                    
+                    cardamount3 = cardamount3 - 1;
 
                     document.getElementById("cardimg3").src = "/Card Deck/" + korttipakka3[roundedrndnum3] + ".png";
                     document.getElementById("cardimg3").alt = korttipakka2[roundedrndnum3] + ".png";
 
+                    checkDrinking(korttipakka1);
+
+                    korttipakka1.splice(roundedrndnum1, 1);
+                    korttipakka2.splice(roundedrndnum2, 1);
                     korttipakka3.splice(roundedrndnum3, 1);
-                    cardamount3 = cardamount3 - 1;
-
-                    var rndnum4 = Math.random() * (cardamount4 - 1);
-                    var roundedrndnum4 = Math.round(rndnum4);
-
-                    document.getElementById("cardimg4").src = "/Card Deck/" + korttipakka4[roundedrndnum4] + ".png";
-                    document.getElementById("cardimg4").alt = korttipakka4[roundedrndnum4] + ".png";
-
-                    korttipakka4.splice(roundedrndnum4, 1);
-                    cardamount4 = cardamount4 - 1;
-
                 }
                 else
                 {
                     document.getElementById("cardimg1").src = "/Card Deck/gray_back.png";
                     document.getElementById("cardimg2").src = "/Card Deck/gray_back.png";
                     document.getElementById("cardimg3").src = "/Card Deck/gray_back.png";
-                    document.getElementById("cardimg4").src = "/Card Deck/gray_back.png";
                     document.getElementById("errormessage").innerHTML = "Korttipakka tyhjä";
                 }
+                
             });
 
             $("#alustabutton1").on("click", function()
@@ -134,13 +166,16 @@
                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
                 cardamount3 = 52;
 
-                document.getElementById("cardimg4").src = "/Card Deck/blue_back.png";
+                cumldrinkamount1 = 0;
+                cumldrinkamount2 = 0;
+                cumldrinkamount3 = 0;
 
-                korttipakka4 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
-                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
-                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
-                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
-                cardamount4 = 52;
+                document.getElementById("cumldrinkresultlabel1").innerHTML = "Pelaaja1 yhteensä: " + cumldrinkamount1;
+                document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
+                if (playeramount == 3)
+                {
+                    document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
+                }
             });
             $("#addplayer").on("click", function()
             {
@@ -148,15 +183,278 @@
                 {
                     playeramount = 3;
                     document.getElementById("cardimg3").style.visibility = "visible";
+                    document.getElementById("hideplayer").disabled = false;
+                    document.getElementById("player3nick").style.visibility = "visible";
                 }
-                else
+            });
+            $("#hideplayer").on("click", function()
+            {
+                if (playeramount == 3)
                 {
-                    playeramount = 4;
-                    document.getElementById("cardimg4").style.visibility = "visible";
-                    document.getElementById("addplayer").style.visibility = "hidden"
+                    playeramount = 2;
+                    document.getElementById("cardimg3").style.visibility = "hidden";
+                    document.getElementById("hideplayer").disabled = true;
+                    document.getElementById("player3nick").style.visibility = "hidden";
                 }
             });
 
+            function checkDrinking()
+            {
+                var drinkcard1 = korttipakka1[roundedrndnum1];
+                var drinkcard2 = korttipakka2[roundedrndnum2];
+                var drinkcard3 = korttipakka3[roundedrndnum3];
+                var drinkcard1numb = drinkcard1.replace(/[^0-9]/g, '');
+                var drinkcard2numb = drinkcard2.replace(/[^0-9]/g, '');
+                var drinkcard3numb = drinkcard3.replace(/[^0-9]/g, '');
+                var drinkcard1suit = drinkcard1.charAt(1);
+                var drinkcard2suit = drinkcard2.charAt(1);
+                var drinkcard3suit = drinkcard3.charAt(1);
+
+                var drinkamount1 = 0;
+                var drinkamount2 = 0;
+                var drinkamount3 = 0;
+
+                var asd;
+
+                if (playeramount == 2)
+                {
+                    if (document.getElementById("easy").checked)
+                    {
+                        if (drinkcard1suit == drinkcard2suit && drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = 8;
+                            drinkamount2 = 8;
+                        }
+                        else if (drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = 3;
+                            drinkamount2 = 3;
+                        }
+                        else if(drinkcard1suit == drinkcard2suit)
+                        {
+                            drinkamount1 = 1;
+                            drinkamount2 = 1;
+                        }
+                    }
+                    if (document.getElementById("medium").checked)
+                    {
+                        if (drinkcard1suit == drinkcard2suit && drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = 8;
+                            drinkamount2 = 8;
+                        }
+                        else if (drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = 4;
+                            drinkamount2 = 4;
+                        }
+                        else if(drinkcard1suit == drinkcard2suit)
+                        {
+                            drinkamount1 = 2;
+                            drinkamount2 = 2;
+                        }
+                    }
+                    if (document.getElementById("hard").checked)
+                    {
+                        if (drinkcard1suit == drinkcard2suit && drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = 16;
+                            drinkamount2 = 16;
+                        }
+                        else if (drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = 4;
+                            drinkamount2 = 4;
+                        }
+                        else if(drinkcard1suit == drinkcard2suit)
+                        {
+                            drinkamount1 = 4;
+                            drinkamount2 = 4;
+                        }
+                    }
+
+                    cumldrinkamount1 = cumldrinkamount1 += drinkamount1;
+                    cumldrinkamount2 = cumldrinkamount2 += drinkamount2;
+
+                    document.getElementById("cumldrinkresultlabel1").innerHTML = "Pelaaja1 yhteensä: " + cumldrinkamount1;
+                    document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
+                    document.getElementById("drinkresultlabel").innerHTML = " ";
+
+                    if (drinkamount1 != 0 || drinkamount2 != 0)
+                    {
+                        document.getElementById("drinkresultlabel").innerHTML = document.getElementById("player1nick").value + " juo " + drinkamount1 + " kulausta ja " + document.getElementById("player2nick").value + " juo " + drinkamount2 + " kulausta";
+                    }
+                } else if (playeramount == 3)
+                {
+                    if (document.getElementById("easy").checked)
+                    {
+                        if (drinkcard1suit == drinkcard2suit == drinkcard3suit && drinkcard1numb == drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 8;
+                            drinkamount2 = drinkamount2 + 8;
+                            drinkamount3 = drinkamount3 + 8;
+                        }
+                        if (drinkcard1suit == drinkcard2suit && drinkcard2suit == drinkcard3suit)
+                        {
+                            drinkamount1 = drinkamount1 + 4;
+                            drinkamount2 = drinkamount2 + 4;
+                            drinkamount3 = drinkamount3 + 4;
+                        }
+                        else if(drinkcard1suit == drinkcard2suit)
+                        {
+                            drinkamount1 = drinkamount1 + 1;
+                            drinkamount2 = drinkamount2 + 1;
+                        }
+                        else if(drinkcard1suit == drinkcard3suit)
+                        {
+                            drinkamount1 = drinkamount1 + 1;
+                            drinkamount3 = drinkamount3 + 1;
+                        }
+                        else if(drinkcard2suit == drinkcard3suit)
+                        {
+                            drinkamount2 = drinkamount2 + 1;
+                            drinkamount3 = drinkamount3 + 1;
+                        }
+                        if (drinkcard1numb == drinkcard2numb && drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 4;
+                            drinkamount2 = drinkamount2 + 4;
+                            drinkamount3 = drinkamount3 + 4;
+                        }
+                        else if(drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount2 = drinkamount2 + 2;
+                        }
+                        else if(drinkcard1numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                        else if(drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount2 = drinkamount2 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                    }
+                    if (document.getElementById("medium").checked)
+                    {
+                        if (drinkcard1suit == drinkcard2suit == drinkcard3suit && drinkcard1numb == drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 16;
+                            drinkamount2 = drinkamount2 + 16;
+                            drinkamount3 = drinkamount3 + 16;
+                        }
+                        if (drinkcard1suit == drinkcard2suit && drinkcard2suit == drinkcard3suit)
+                        {
+                            drinkamount1 = drinkamount1 + 8;
+                            drinkamount2 = drinkamount2 + 8;
+                            drinkamount3 = drinkamount3 + 8;
+                        }
+                        else if(drinkcard1suit == drinkcard2suit)
+                        {
+                            drinkamount1 = drinkamount1 + 1;
+                            drinkamount2 = drinkamount2 + 1;
+                        }
+                        else if(drinkcard1suit == drinkcard3suit)
+                        {
+                            drinkamount1 = drinkamount1 + 1;
+                            drinkamount3 = drinkamount3 + 1;
+                        }
+                        else if(drinkcard2suit == drinkcard3suit)
+                        {
+                            drinkamount2 = drinkamount2 + 1;
+                            drinkamount3 = drinkamount3 + 1;
+                        }
+                        if (drinkcard1numb == drinkcard2numb && drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 8;
+                            drinkamount2 = drinkamount2 + 8;
+                            drinkamount3 = drinkamount3 + 8;
+                        }
+                        else if(drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount2 = drinkamount2 + 2;
+                        }
+                        else if(drinkcard1numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                        else if(drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount2 = drinkamount2 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                    }
+                    if (document.getElementById("hard").checked)
+                    {
+                        if (drinkcard1suit == drinkcard2suit == drinkcard3suit && drinkcard1numb == drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 16;
+                            drinkamount2 = drinkamount2 + 16;
+                            drinkamount3 = drinkamount3 + 16;
+                        }
+                        if (drinkcard1suit == drinkcard2suit && drinkcard2suit == drinkcard3suit)
+                        {
+                            drinkamount1 = drinkamount1 + 12;
+                            drinkamount2 = drinkamount2 + 12;
+                            drinkamount3 = drinkamount3 + 12;
+                        }
+                        else if(drinkcard1suit == drinkcard2suit)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount2 = drinkamount2 + 2;
+                        }
+                        else if(drinkcard1suit == drinkcard3suit)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                        else if(drinkcard2suit == drinkcard3suit)
+                        {
+                            drinkamount2 = drinkamount2 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                        if (drinkcard1numb == drinkcard2numb && drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 12;
+                            drinkamount2 = drinkamount2 + 12;
+                            drinkamount3 = drinkamount3 + 12;
+                        }
+                        else if(drinkcard1numb == drinkcard2numb)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount2 = drinkamount2 + 2;
+                        }
+                        else if(drinkcard1numb == drinkcard3numb)
+                        {
+                            drinkamount1 = drinkamount1 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                        else if(drinkcard2numb == drinkcard3numb)
+                        {
+                            drinkamount2 = drinkamount2 + 2;
+                            drinkamount3 = drinkamount3 + 2;
+                        }
+                    }
+                    
+                    cumldrinkamount1 = cumldrinkamount1 += drinkamount1;
+                    cumldrinkamount2 = cumldrinkamount2 += drinkamount2;
+                    cumldrinkamount3 = cumldrinkamount3 += drinkamount3;
+
+                    document.getElementById("cumldrinkresultlabel1").innerHTML = "Pelaaja1 yhteensä: " + cumldrinkamount1;
+                    document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
+                    document.getElementById("cumldrinkresultlabel3").innerHTML = "Pelaaja3 yhteensä: " + cumldrinkamount3;
+                    document.getElementById("drinkresultlabel").innerHTML = " ";
+
+                    if (drinkamount1 != 0 || drinkamount2 != 0 || drinkamount3 != 0)
+                    {
+                        document.getElementById("drinkresultlabel").innerHTML = document.getElementById("player1nick").value + " juo " + drinkamount1 + " kulausta, " + document.getElementById("player2nick").value + " juo " + drinkamount2 + " kulausta ja " + document.getElementById("player3nick").value + " juo " + drinkamount3 + " kulausta";
+                    }
+                }             
+            };
         });
     </script>
 </body>
