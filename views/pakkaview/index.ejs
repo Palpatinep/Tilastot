@@ -4,31 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport">
     <title>Pakka</title>
-    <script type="text/javascript" src="pakkascript.js" ></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"" ></script>
 </head>
 <body>
     <h1>Pakka</h1>
     <label id="errormessage"></label>
-
-    <br>
-    <br>
-    <br>
-    <br>
     
-    <button id="korttibutton1" >Ota kortti</button>
+    <div>
+        <img id="cardimg1" src="/Card Deck/blue_back.png" style="margin:30px; width: 100px; height: 152px"/>
+        <img id="cardimg2" src="/Card Deck/blue_back.png" style="margin:30px; width: 100px; height: 152px"/>
+        <img id="cardimg3" src="/Card Deck/blue_back.png" style="visibility: hidden; margin:30px; width: 100px; height: 152px"/>
+        <img id="cardimg4" src="/Card Deck/blue_back.png" style="visibility: hidden; margin:30px; width: 100px; height: 152px"/>
+    </div> 
+
+    <button id="korttibutton1">Ota kortti</button>
     <br>
     <button id="alustabutton1">Alusta Pakka</button>
     <br>
-    <label id="cardamountlabel">Cards left: </label>
-    <br>
-    <label id="randomnumber">Random number: </label>
-    <br>
-    <label id="roundedrandomnumber">Rounded Random number: </label>
-    <br>
-    <label id="kortti1" >Kortti 1</label>
-    <br>
-    <label id="carddeck" >Card deck: </label>
+    <button id="addplayer">Lisää pelaaja</button>
     <br>
 
     <script>
@@ -36,45 +29,132 @@
         $(function(){
 
 
-            var korttipakka = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13",
-                                 "ri1", "ri2", "ri3", "ri4", "ri5", "ri6", "ri7", "ri8", "ri9", "ri10", "ri11", "ri12", "ri13",
-                                 "ru1", "ru2", "ru3", "ru4", "ru5", "ru6", "ru7", "ru8", "ru9", "ru10", "ru11", "ru12", "ru13",
-                                 "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12", "h13"];
+            var playeramount = 2;
 
-            var cardamount = 52;
+            var korttipakka1 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+
+            var korttipakka2 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+            
+            var korttipakka3 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+
+            var korttipakka4 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+
+            var cardamount1 = 52;
+            var cardamount2 = 52;
+            var cardamount3 = 52;
+            var cardamount4 = 52;
 
             $("#korttibutton1").on("click", function()
             {
-                if (cardamount > 0)
+                if (cardamount1 > 0)
                 {
-                    var rndnum = Math.random() * (cardamount - 1);
-                    var roundedrndnum = Math.round(rndnum);
+                    var rndnum1 = Math.random() * (cardamount1 - 1);
+                    var roundedrndnum1 = Math.round(rndnum1);
 
-                    document.getElementById("randomnumber").innerHTML = "Random number: " + rndnum;
-                    document.getElementById("roundedrandomnumber").innerHTML = "Rounded Random number: " + roundedrndnum;
-                    document.getElementById("kortti1").innerHTML = "Kortti: " + korttipakka[roundedrndnum];
+                    document.getElementById("cardimg1").src = "/Card Deck/" + korttipakka1[roundedrndnum1] + ".png";
+                    document.getElementById("cardimg1").alt = korttipakka1[roundedrndnum1] + ".png";
 
-                    korttipakka.splice(roundedrndnum, 1);
-                    cardamount = cardamount - 1;
-                    document.getElementById("cardamountlabel").innerHTML = "Cards left: " + cardamount;
-                    document.getElementById("carddeck").innerHTML = "Card deck: " + korttipakka;
+                    korttipakka1.splice(roundedrndnum1, 1);
+                    cardamount1 = cardamount1 - 1;
+
+                    var rndnum2 = Math.random() * (cardamount2 - 1);
+                    var roundedrndnum2 = Math.round(rndnum2);
+
+                    document.getElementById("cardimg2").src = "/Card Deck/" + korttipakka2[roundedrndnum2] + ".png";
+                    document.getElementById("cardimg2").alt = korttipakka2[roundedrndnum2] + ".png";
+
+                    korttipakka2.splice(roundedrndnum2, 1);
+                    cardamount2 = cardamount2 - 1;
+
+                    var rndnum3 = Math.random() * (cardamount3 - 1);
+                    var roundedrndnum3 = Math.round(rndnum3);
+
+                    document.getElementById("cardimg3").src = "/Card Deck/" + korttipakka3[roundedrndnum3] + ".png";
+                    document.getElementById("cardimg3").alt = korttipakka2[roundedrndnum3] + ".png";
+
+                    korttipakka3.splice(roundedrndnum3, 1);
+                    cardamount3 = cardamount3 - 1;
+
+                    var rndnum4 = Math.random() * (cardamount4 - 1);
+                    var roundedrndnum4 = Math.round(rndnum4);
+
+                    document.getElementById("cardimg4").src = "/Card Deck/" + korttipakka4[roundedrndnum4] + ".png";
+                    document.getElementById("cardimg4").alt = korttipakka4[roundedrndnum4] + ".png";
+
+                    korttipakka4.splice(roundedrndnum4, 1);
+                    cardamount4 = cardamount4 - 1;
+
                 }
                 else
                 {
+                    document.getElementById("cardimg1").src = "/Card Deck/gray_back.png";
+                    document.getElementById("cardimg2").src = "/Card Deck/gray_back.png";
+                    document.getElementById("cardimg3").src = "/Card Deck/gray_back.png";
+                    document.getElementById("cardimg4").src = "/Card Deck/gray_back.png";
                     document.getElementById("errormessage").innerHTML = "Korttipakka tyhjä";
                 }
-
             });
 
             $("#alustabutton1").on("click", function()
             {
                 document.getElementById("errormessage").innerHTML = "";
+                document.getElementById("cardimg1").src = "/Card Deck/blue_back.png";
 
-                korttipakka = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13",
-                                 "ri1", "ri2", "ri3", "ri4", "ri5", "ri6", "ri7", "ri8", "ri9", "ri10", "ri11", "ri12", "ri13",
-                                 "ru1", "ru2", "ru3", "ru4", "ru5", "ru6", "ru7", "ru8", "ru9", "ru10", "ru11", "ru12", "ru13",
-                                 "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12", "h13"];
-                cardamount = 52;
+                korttipakka1 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+                cardamount1 = 52;
+
+                document.getElementById("cardimg2").src = "/Card Deck/blue_back.png";
+
+                korttipakka2 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+                cardamount2 = 52;
+
+                document.getElementById("cardimg3").src = "/Card Deck/blue_back.png";
+
+                korttipakka3 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+                cardamount3 = 52;
+
+                document.getElementById("cardimg4").src = "/Card Deck/blue_back.png";
+
+                korttipakka4 = ["pata1", "pata2", "pata3", "pata4", "pata5", "pata6", "pata7", "pata8", "pata9", "pata10", "pata11", "pata12", "pata13",
+                                 "risti1", "risti2", "risti3", "risti4", "risti5", "risti6", "risti7", "risti8", "risti9", "risti10", "risti11", "risti12", "risti13",
+                                 "ruutu1", "ruutu2", "ruutu3", "ruutu4", "ruutu5", "ruutu6", "ruutu7", "ruutu8", "ruutu9", "ruutu10", "ruutu11", "ruutu12", "ruutu13",
+                                 "hertta1", "hertta2", "hertta3", "hertta4", "hertta5", "hertta6", "hertta7", "hertta8", "hertta9", "hertta10", "hertta11", "hertta12", "hertta13"];
+                cardamount4 = 52;
+            });
+            $("#addplayer").on("click", function()
+            {
+                if (playeramount == 2)
+                {
+                    playeramount = 3;
+                    document.getElementById("cardimg3").style.visibility = "visible";
+                }
+                else
+                {
+                    playeramount = 4;
+                    document.getElementById("cardimg4").style.visibility = "visible";
+                    document.getElementById("addplayer").style.visibility = "hidden"
+                }
             });
 
         });
