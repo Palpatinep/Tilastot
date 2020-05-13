@@ -26,8 +26,20 @@ const fifaSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    drawnplayerhome:{
+        type: String,
+        required: false
+    },
+    drawnplayeraway:{
+        type: String,
+        required: false
+    },
     lumierat:{
         type: Boolean,
+        required: false
+    },
+    MatchDate:{
+        type: Date,
         required: false
     }
 });

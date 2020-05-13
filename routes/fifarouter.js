@@ -126,9 +126,12 @@ router.post("/", async (req, res) =>
                 resultAway: req.body.fifaresultaway,
                 pelaajaHome: req.body.pelaajahome,
                 pelaajaAway: req.body.pelaajaaway,
+                drawnplayerhome: DrawnPlayer1,
+                drawnplayeraway: DrawnPlayer2,
                 winner: WinnerPlayer,
                 loser: LoserPlayer,
-                lumierat: lumierat
+                lumierat: lumierat,
+                MatchDate: new Date()
             }
         );
         try

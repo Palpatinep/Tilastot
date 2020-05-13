@@ -6,42 +6,8 @@
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
-    <h1>AJAX</h1>
-    <h2 id="testtext">Test text</h2>
-    <h2 id="testtext2">Test text 2</h2>
-    <h2 id="testtext3">Test text 3</h2>
-    <h2 id="testtext4">Test text 4</h2>
-    <h2 id="testtext5">Test text 5</h2>
+    <h1>Tulossa myöhemmin</h1>
 
-    <button id="get-button">TRY</button>
-
-    <ul id="pelaajalista"></ul>
-    
-
-
-    <script>
-        $(function() {
-
-            $('#get-button').on('click', function() {
-
-                $.ajax({
-                        type: "GET",
-                        url: "/biljardi/Arza",
-                        dataType: "json",
-                        success: function(pelaajat)
-                        {
-                            $.each(pelaajat, function(i, pelaaja)
-                            {
-                                $("#pelaajalista").append("<li>Player Name: "+ pelaaja.playerName +", FIFA Wins: "+ pelaaja.fifaWins + " </li>")
-                            })
-
-
-                            console.log("success", pelaajat);
-                        }          
-                });
-            });
-        });
-    </script>
 
 </body>
 </html>

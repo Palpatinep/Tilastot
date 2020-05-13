@@ -37,18 +37,24 @@
             <% return true; %>
         <% } %>
     <br>
-    <input type="number" min="0" name="fifaresulthome" value="0">
-    <input type="number" min="0" name="fifaresultaway" value="0">
+    <input type="number" min="0" max="100" name="fifaresulthome" value="0">
+    <input type="number" min="0" max="100" name="fifaresultaway" value="0">
     <button type="submit">OK</button>
     </form>
 
-
-
+<br>
+<br>
+<label>Aikaisempien otteluiden tulokset:</label>
+<br>
+<br>
     <% try { %>
         <% fifaResults.forEach(element => { %>
             <div><%= element.resultHome %> - <%= element.resultAway %></div>
-            <div>Winner: <%= element.winner %>, Loser: <%= element.loser %>, Lumierät: <%= element.lumierat%></div>
-          <% }) %>
+            <% if (element.resultHome == element.resultAway) { %>
+                <div>Tasapeli pelaajien <%= element.drawnplayerhome %> ja <%= element.drawnplayeraway %> välillä, Lumierät: <%= element.lumierat%>, Ajankohta: <%= element.MatchDate%></div>
+            <%  } else { %>
+            <div>Voittaja: <%= element.winner %>, Häviäjä: <%= element.loser %>, Lumierät: <%= element.lumierat%>, Ajankohta: <%= element.MatchDate%></div>
+          <% }}) %>
     <% } catch (error) { %>
         <% return true; %>
     <% } %>
