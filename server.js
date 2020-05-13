@@ -23,6 +23,7 @@ const indexRouter = require("./routes/index");
 const fifaRouter = require("./routes/fifarouter");
 const biljardiRouter = require("./routes/biljardirouter");
 const pelaajaRouter = require("./routes/pelaajarouter");
+const pakkaRouter = require("./routes/pakkarouter");
 
 app.use(expresslayouts);
 app.use(express.static("public"));
@@ -31,5 +32,6 @@ app.use("/", indexRouter);
 app.use("/fifa", fifaRouter);
 app.use("/biljardi", biljardiRouter);
 app.use("/pelaaja", pelaajaRouter);
+app.use("/pakka", pakkaRouter);
 
 app.listen(process.env.PORT || 3000);

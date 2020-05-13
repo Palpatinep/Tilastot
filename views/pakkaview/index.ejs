@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Pakka</title>
+    <script type="text/javascript" src="pakkascript.js" ></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"" ></script>
+</head>
+<body>
+    <h1>Pakka</h1>
+    <label id="errormessage"></label>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <button id="korttibutton1" >Ota kortti</button>
+    <br>
+    <button id="alustabutton1">Alusta Pakka</button>
+    <br>
+    <label id="cardamountlabel">Cards left: </label>
+    <br>
+    <label id="randomnumber">Random number: </label>
+    <br>
+    <label id="roundedrandomnumber">Rounded Random number: </label>
+    <br>
+    <label id="kortti1" >Kortti 1</label>
+    <br>
+    <label id="carddeck" >Card deck: </label>
+    <br>
+
+    <script>
+
+        $(function(){
+
+
+            var korttipakka = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13",
+                                 "ri1", "ri2", "ri3", "ri4", "ri5", "ri6", "ri7", "ri8", "ri9", "ri10", "ri11", "ri12", "ri13",
+                                 "ru1", "ru2", "ru3", "ru4", "ru5", "ru6", "ru7", "ru8", "ru9", "ru10", "ru11", "ru12", "ru13",
+                                 "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12", "h13"];
+
+            var cardamount = 52;
+
+            $("#korttibutton1").on("click", function()
+            {
+                if (cardamount > 0)
+                {
+                    var rndnum = Math.random() * (cardamount - 1);
+                    var roundedrndnum = Math.round(rndnum);
+
+                    document.getElementById("randomnumber").innerHTML = "Random number: " + rndnum;
+                    document.getElementById("roundedrandomnumber").innerHTML = "Rounded Random number: " + roundedrndnum;
+                    document.getElementById("kortti1").innerHTML = "Kortti: " + korttipakka[roundedrndnum];
+
+                    korttipakka.splice(roundedrndnum, 1);
+                    cardamount = cardamount - 1;
+                    document.getElementById("cardamountlabel").innerHTML = "Cards left: " + cardamount;
+                    document.getElementById("carddeck").innerHTML = "Card deck: " + korttipakka;
+                }
+                else
+                {
+                    document.getElementById("errormessage").innerHTML = "Korttipakka tyhjä";
+                }
+
+            });
+
+            $("#alustabutton1").on("click", function()
+            {
+                document.getElementById("errormessage").innerHTML = "";
+
+                korttipakka = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13",
+                                 "ri1", "ri2", "ri3", "ri4", "ri5", "ri6", "ri7", "ri8", "ri9", "ri10", "ri11", "ri12", "ri13",
+                                 "ru1", "ru2", "ru3", "ru4", "ru5", "ru6", "ru7", "ru8", "ru9", "ru10", "ru11", "ru12", "ru13",
+                                 "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12", "h13"];
+                cardamount = 52;
+            });
+
+        });
+    </script>
+</body>
+</html>
