@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Pelaaja = require("../models/pelaaja");
+const Fifa = require("../models/fifa");
 
 router.get("/", async (req, res) =>
 {
@@ -65,6 +66,30 @@ router.get("/:id", async (req, res) =>
 
     res.redirect("/pelaaja");
 })
+
+router.get("/vs/:id1/:id2", async (req, res) =>
+{
+
+    let searchOptionsPelaaja1 = {_id: req.params.id1};
+    let searchOptionsPelaaja2 = {_id: req.params.id2};
+
+    const pelaaja1 = await Pelaaja.find({_id: req.params.id1});
+    const pelaaja2 = await Pelaaja.find({_id: req.params.id2});
+
+    console.log("YYYYYYYYYYYYYYYYYYYYYY");
+    console.log(pelaaja1)
+    console.log(pelaaja2)
+
+    const fifasresults = await Fifa.find({pelaajaHome: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, pelaajaAway: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}}).exec()
+    .then(doc => 
+        {
+            console.log(doc)
+            res.status(200).json(doc);
+        });
+
+    res.redirect("/pelaaja");
+})
+
 
 
 module.exports = router;

@@ -6,7 +6,43 @@
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
-    <h1>Tulossa myöhemmin</h1>
+    <h1>Biljardi tilastot</h1>
+
+    <% if (locals.errorMessage != null) { %>
+        <div><%= errorMessage %></div>
+      <% } %>
+      
+    <label>Pelin tulos</label>
+    <form action="biljardi" method="POST">
+
+        <% try { %>
+            <label>Pelaaja 1</label>
+            <select name="pelaajahome">
+            <% pelaaja.forEach(element => { %>
+            <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
+            <% }) %>
+            </select>
+            <input type="radio" id="biljardiresulthome" name="biljardiresult" checked>
+        <% } catch (error) { %>
+            <% return true; %>
+        <% } %>
+
+        <% try { %>
+            <label>Pelaaja 2</label>
+            <select name="pelaajaaway">
+            <% pelaaja.forEach(element => { %>
+            <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
+            <% }) %>
+            </select>
+            <input type="radio" id="biljardiresultaway" name="biljardiresult">
+        <% } catch (error) { %>
+            <% return true; %>
+        <% } %>
+        <label>Lumierät: </label>
+    <input type="checkbox" id="biljardilumieracheckbox">
+    <button type="submit">OK</button>
+    </form>
+    <br>
 
 
 </body>

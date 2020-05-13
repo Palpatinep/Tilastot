@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport">
     <title>Pakka</title>
+    <link rel="stylesheet" type="text/css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"" ></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
     <h1>Pakka</h1>
@@ -12,9 +14,9 @@
 
     <input type="radio" id="easy" name="difficulty" value="easy">
     <label for="easy">Easy</label>
-    <input type="radio" id="medium" name="difficulty" value="medium">
+    <input type="radio" id="medium" name="difficulty" value="medium" checked>
     <label for="medium">Medium</label>
-    <input type="radio" id="hard" name="difficulty" value="hard" checked>
+    <input type="radio" id="hard" name="difficulty" value="hard">
     <label for="Hard">Hard</label>
     
     <br>
@@ -28,7 +30,6 @@
         <img id="cardimg2" src="/Card Deck/blue_back.png" style="margin:30px; width: 100px; height: 152px"/>
         <img id="cardimg3" src="/Card Deck/blue_back.png" style="visibility: hidden; margin:30px; width: 100px; height: 152px"/>
     </div> 
-
 
     <label id="drinkresultlabel"></label>
     <br>
@@ -92,13 +93,10 @@
 
             $("#korttibutton1").on("click", function()
             {
-                
-
                 if (cardamount1 > 0)
                 {
                     rndnum1 = Math.random() * (cardamount1 - 1);
                     roundedrndnum1 = Math.round(rndnum1);
-
                     
                     cardamount1 = cardamount1 - 1;
 
@@ -170,6 +168,7 @@
                 cumldrinkamount2 = 0;
                 cumldrinkamount3 = 0;
 
+                document.getElementById("drinkresultlabel1").innerHTML = " ";
                 document.getElementById("cumldrinkresultlabel1").innerHTML = "Pelaaja1 yhteensä: " + cumldrinkamount1;
                 document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
                 if (playeramount == 3)
@@ -185,6 +184,7 @@
                     document.getElementById("cardimg3").style.visibility = "visible";
                     document.getElementById("hideplayer").disabled = false;
                     document.getElementById("player3nick").style.visibility = "visible";
+                    document.getElementById("cumldrinkresultlabel3").style.visibility = "visible"; 
                 }
             });
             $("#hideplayer").on("click", function()
@@ -195,6 +195,7 @@
                     document.getElementById("cardimg3").style.visibility = "hidden";
                     document.getElementById("hideplayer").disabled = true;
                     document.getElementById("player3nick").style.visibility = "hidden";
+                    document.getElementById("cumldrinkresultlabel3").style.visibility = "hidden";           
                 }
             });
 
@@ -276,8 +277,8 @@
                     cumldrinkamount1 = cumldrinkamount1 += drinkamount1;
                     cumldrinkamount2 = cumldrinkamount2 += drinkamount2;
 
-                    document.getElementById("cumldrinkresultlabel1").innerHTML = "Pelaaja1 yhteensä: " + cumldrinkamount1;
-                    document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
+                    document.getElementById("cumldrinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " yhteensä: " + cumldrinkamount1;
+                    document.getElementById("cumldrinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " yhteensä: " + cumldrinkamount2;
                     document.getElementById("drinkresultlabel").innerHTML = " ";
 
                     if (drinkamount1 != 0 || drinkamount2 != 0)
@@ -444,9 +445,9 @@
                     cumldrinkamount2 = cumldrinkamount2 += drinkamount2;
                     cumldrinkamount3 = cumldrinkamount3 += drinkamount3;
 
-                    document.getElementById("cumldrinkresultlabel1").innerHTML = "Pelaaja1 yhteensä: " + cumldrinkamount1;
-                    document.getElementById("cumldrinkresultlabel2").innerHTML = "Pelaaja2 yhteensä: " + cumldrinkamount2;
-                    document.getElementById("cumldrinkresultlabel3").innerHTML = "Pelaaja3 yhteensä: " + cumldrinkamount3;
+                    document.getElementById("cumldrinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " yhteensä: " + cumldrinkamount1;
+                    document.getElementById("cumldrinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " yhteensä: " + cumldrinkamount2;
+                    document.getElementById("cumldrinkresultlabel3").innerHTML = document.getElementById("player3nick").value + " yhteensä: " + cumldrinkamount3;
                     document.getElementById("drinkresultlabel").innerHTML = " ";
 
                     if (drinkamount1 != 0 || drinkamount2 != 0 || drinkamount3 != 0)
