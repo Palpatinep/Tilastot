@@ -7,6 +7,11 @@
 </head>
 <body>
     <h1>FIFA tilastot</h1>
+
+    <% if (locals.errorMessage != null) { %>
+        <div><%= errorMessage %></div>
+      <% } %>
+      
     <label>Tulos</label>
     <form action="fifa" method="POST">
 
@@ -32,8 +37,8 @@
             <% return true; %>
         <% } %>
     <br>
-    <input type="number" name="fifaresulthome" value="">
-    <input type="number" name="fifaresultaway" value="">
+    <input type="number" min="0" name="fifaresulthome" value="0">
+    <input type="number" min="0" name="fifaresultaway" value="0">
     <button type="submit">OK</button>
     </form>
 

@@ -10,17 +10,22 @@
 <body>
     <h1>Pelaajat</h1>
 
+    <% if (locals.errorMessage != null) { %>
+        <div><%= errorMessage %></div>
+      <% } %>
+    
+    <br>
 
     <select id="pelaajabase" name="pelaajabase">
 
         <% pelaajat.forEach(element => { %>
-        <option label="<%= element.playerName %>" value="<%= element.playerName %>">
+        <option label="<%= element.playerName %>" value="<%= element._id %>">
         <% }) %>
         
     </select>
 
-
     <button type="submit" id="okbutton">OK</button>
+
 
     <ul id="statsit">Statsit:</ul>
     <label id="statsfifawins">Fifa Voitot:</label>
@@ -40,7 +45,14 @@
     <br>
     <br>
 
-    <%- include ("_form_fields.ejs") %>
+    <label>Uusi pelaaja</label>
+    <form action="pelaaja" method="POST">
+    
+        <input name="pelaajaname">
+        <button type="submit">OK</button>
+    
+    
+    </form>
 
     <% pelaajat.forEach(element => { %>
         <div><%= element %></div>
@@ -57,22 +69,13 @@
                         dataType: "json",
                         success: function(pelaajat)
                         {
-                            // $.each(pelaajat, function(i, pelaaja)
-                            // {
-                            //     $("#statsit").append("<li>Player Name: "+ pelaaja.playerName +", FIFA Wins: "+ pelaaja.fifaWins + " </li>")
-                            // })
                             $.each(pelaajat, function(i, pelaaja)
                             {
                                 document.getElementById("statsfifawins").innerHTML = "Fifa Voitot: " + pelaaja.fifaWins;
                                 document.getElementById("statsfifalosses").innerHTML = "Fifa Häviöt: " + pelaaja.fifaLosses;
                                 document.getElementById("statsfifadraws").innerHTML = "Tasapelit: " + pelaaja.fifaDraws;
-                                document.getElementById("statswinperc").innerHTML = "Voittoprosentti: " + (pelaaja.fifaWinPerc * 100) + "%";
+                                document.getElementById("statswinperc").innerHTML = "Voittoprosentti: " + (pelaaja.fifaWinPerc * 100).toFixed(0) + "%";
                             })
-
-                            
-
-
-                            console.log("success", pelaajat);
                         }          
                 });
             });

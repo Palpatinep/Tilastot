@@ -4,46 +4,56 @@ const Pelaaja = require("../models/pelaaja");
 
 router.get("/", async (req, res) =>
 {
-    let searchOptions = {};
-    
-    const pelaajat = await Pelaaja.find(searchOptions);
+    const pelaajat = await Pelaaja.find({});
 
     res.render("pelaajaview/index", 
     {
         pelaajat: pelaajat,
-        searchOptions: req.query
     });
 });
 
 
 router.post("/", async (req, res) =>
 {
-
-    const newPelaaja = new Pelaaja(
+    if(req.body.pelaajaname.length < 1)
     {
-        playerName: req.body.pelaajaname,
-        fifaWins: 0,
-        fifaLosses: 0,
-        fifaDraws: 0
-    });
-
-    try
-    {
-        await newPelaaja.save();
-        console.log("New player created");
-        res.redirect("/pelaaja");
+        const pelaajat = await Pelaaja.find({});
+        var errorMessage = "Virheellinen syöte";
+        
+        res.render("pelaajaview/index",
+        {
+            pelaajat: pelaajat,
+            errorMessage: errorMessage
+        })
     }
-    catch
+    else
     {
-        res.render("/biljardi");
-        errorMessage: "Virheellinen syöte"
-    }
-    
+        const newPelaaja = new Pelaaja(
+            {
+                playerName: req.body.pelaajaname,
+                fifaWins: 0,
+                fifaLosses: 0,
+                fifaDraws: 0
+            });
+        
+            try
+            {
+                await newPelaaja.save();
+                console.log("New player created");
+                res.redirect("/pelaaja");
+            }
+            catch
+            {
+                res.render("/biljardi");
+                errorMessage: "Virheellinen syöte"
+            }
+    } 
 });
 
-router.get("/Arza", async (req, res) =>
+
+router.get("/:id", async (req, res) =>
 {
-    let searchOptionsPelaaja = {playerName: "Arza"};
+    let searchOptionsPelaaja = {_id: req.params.id};
 
     const pelaajat = await Pelaaja.find(searchOptionsPelaaja).exec()
     .then(doc => 
@@ -52,30 +62,9 @@ router.get("/Arza", async (req, res) =>
             res.status(200).json(doc);
         });
 
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
     res.redirect("/pelaaja");
+})
 
-
-
-});
-
-
-router.get("/Panu", async (req, res) =>
-{
-    let searchOptionsPelaaja = {playerName: "Panu"};
-
-    const pelaajat = await Pelaaja.find(searchOptionsPelaaja).exec()
-    .then(doc => 
-        {
-            console.log(doc)
-            res.status(200).json(doc);
-        });
-
-    console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-    res.redirect("/pelaaja");
-
-
-
-});
 
 module.exports = router;
