@@ -63,6 +63,20 @@ router.post("/", async (req, res) =>
             errorMessage: errorMessage
         })
     }
+    // if(req.body.fifaresulthome.validity.valid == false)
+    // {
+    //     const pelaajat = await Pelaaja.find({});
+    //     const fifaResults = await Fifa.find({});
+    //     var errorMessage = "Virhe syötteessä, yritä uudestaan";
+        
+    //     res.render("fifaview/index",
+    //     {
+    //         fifaResults: fifaResults,
+    //         pelaaja: pelaajat,
+    //         errorMessage: errorMessage
+    //     })
+    // }
+
 
     else
     {
@@ -134,7 +148,10 @@ router.post("/", async (req, res) =>
                 lumierat: lumierat,
                 MatchDate: new Date()
             }
+            
         );
+
+        console.log(new Date().toISOString());
         try
         {
             await fifaResult.save();

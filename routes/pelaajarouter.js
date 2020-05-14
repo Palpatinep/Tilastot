@@ -38,7 +38,8 @@ router.post("/", async (req, res) =>
                 fifaDraws: 0,
                 fifaWinPerc: 0,
                 biljardiWins: 0,
-                biljardiLosses: 0
+                biljardiLosses: 0,
+                biljardiWinPerc: 0
             });
         
             try

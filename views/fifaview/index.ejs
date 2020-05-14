@@ -8,53 +8,48 @@
 </head>
 <body>
     <h3>FIFA tilastot</h3>
-
-    <% if (locals.errorMessage != null) { %>
-        <div><%= errorMessage %></div>
-      <% } %>
-      
-    <label>Pelin tulos</label>
+     
+    <p style="margin-bottom: 20px;">Pelin tulos:</p>
     <form action="fifa" method="POST">
 
-        <% try { %>
-            <label>Pelaaja 1</label>
+        <label>Pelaaja 1</label>
+        <div style="display: inline-flex; margin-left: 15px;" class="select">
             <select name="pelaajahome">
             <% pelaaja.forEach(element => { %>
             <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             </select>
-        <% } catch (error) { %>
-            <% return true; %>
-        <% } %>
-
-        <% try { %>
-            <label>Pelaaja 2</label>
+        </div>
+          <input class="inputnumber" type="number" min="0" max="99" name="fifaresulthome" value="0" required>
+        
+        <br>
+        <label>Pelaaja 2</label>
+        <div style="display: inline-flex; margin-top: 20px; margin-left: 12px" class="select">
             <select name="pelaajaaway">
             <% pelaaja.forEach(element => { %>
             <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             </select>
-        <% } catch (error) { %>
-            <% return true; %>
-        <% } %>
+        </div>
+        <input class="inputnumber" type="number" min="0" max="99" name="fifaresultaway" value="0" required>
+        
+
     <br>
-    <input type="number" min="0" max="100" name="fifaresulthome" value="0">
-    <input type="number" min="0" max="100" name="fifaresultaway" value="0">
-    <button type="submit">OK</button>
+    <button style="margin-left: 225px; margin-top: 15px;" type="submit" class="myButton" >OK</button>
     </form>
 
 <br>
 <br>
-<label>Aikaisempien otteluiden tulokset:</label>
+<h3 style="margin-top: 50px;" >Aikaisempien pelien tulokset:</h3>
 <br>
 <br>
     <% try { %>
         <% fifaResults.forEach(element => { %>
-            <div><%= element.resultHome %> - <%= element.resultAway %></div>
+            <% const date =  element.MatchDate.getDate() + "." + element.MatchDate.getMonth() + "." + element.MatchDate.getFullYear() + ", " + element.MatchDate.getHours() + ":" + element.MatchDate.getMinutes() %>
             <% if (element.resultHome == element.resultAway) { %>
-                <div>Tasapeli pelaajien <%= element.drawnplayerhome %> ja <%= element.drawnplayeraway %> välillä, Lumierät: <%= element.lumierat%>, Ajankohta: <%= element.MatchDate%></div>
+                <li class="resultclass"><%= element.resultHome %> - <%= element.resultAway %>, Tasapeli pelaajien <%= element.drawnplayerhome %> ja <%= element.drawnplayeraway %> välillä, Ajankohta: <%= date %></li>
             <%  } else { %>
-            <div>Voittaja: <%= element.winner %>, Häviäjä: <%= element.loser %>, Lumierät: <%= element.lumierat%>, Ajankohta: <%= element.MatchDate%></div>
+            <li class="resultclass"><%= element.resultHome %> - <%= element.resultAway %>, Voittaja: <%= element.winner %>, Häviäjä: <%= element.loser %>, Ajankohta: <%= date %></li>
           <% }}) %>
     <% } catch (error) { %>
         <% return true; %>

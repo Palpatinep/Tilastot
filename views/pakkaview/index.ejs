@@ -11,43 +11,49 @@
 </head>
 <body>
     <h3>Pakka</h3>
+
     <label id="errormessage"></label>
 
-    <input type="radio" id="easy" name="difficulty" value="easy">
-    <label for="easy">Easy</label>
-    <input type="radio" id="medium" name="difficulty" value="medium" checked>
-    <label for="medium">Medium</label>
-    <input type="radio" id="hard" name="difficulty" value="hard">
-    <label for="Hard">Hard</label>
+    <div style="margin-bottom: 10px;" >
+        <input style="margin-left: 10px;" type="radio" id="easy" name="difficulty" value="easy">
+        <label for="easy">Easy</label>
+        <input style="margin-left: 10px;" type="radio" id="medium" name="difficulty" value="medium" checked>
+        <label for="medium">Medium</label>
+        <input style="margin-left: 10px;" type="radio" id="hard" name="difficulty" value="hard">
+        <label for="hard">Hard</label>
+    </div>
     
-    <br>
-    <br>
-    <input id="player1nick" value="Pelaaja 1"></input>
-    <input id="player2nick" value="Pelaaja 2"></input>
-    <input id="player3nick" value="Pelaaja 3" style="visibility: hidden"></input>
 
-    <div>
+    <input class="inputtext" id="player1nick" value="Pelaaja 1"></input>
+    <input style="margin-top: 2px;" class="inputtext" id="player2nick" value="Pelaaja 2"></input>
+    <input style="margin-top: 2px; visibility: hidden" class="inputtext" id="player3nick" value="Pelaaja 3"></input>
+
+    <div style="margin-top: 20px;">
         <img id="cardimg1" src="/Card Deck/blue_back.png" style="margin:5px; width: 100px; height: 152px"/>
         <img id="cardimg2" src="/Card Deck/blue_back.png" style="margin:5px; width: 100px; height: 152px"/>
         <img id="cardimg3" src="/Card Deck/blue_back.png" style="visibility: hidden; margin:5px; width: 100px; height: 152px"/>
     </div>
 
-    <label id="drinkresultlabel"></label>
+    <label id="drinkresultlabel1"></label>
     <br>
-    <label id="cumldrinkresultlabel1"></label>
+    <label id="drinkresultlabel2"></label>
     <br>
-    <label id="cumldrinkresultlabel2"></label>
+    <label id="drinkresultlabel3"> </label>
+    <br>
+    <label style="display: block; margin-top: 15px;" id="cumldrinkresultlabel1">Pelaaja 1</label>
+    <br>
+    <label id="cumldrinkresultlabel2">Pelaaja 2</label>
     <br>
     <label id="cumldrinkresultlabel3"></label>
     <br>
-    <button id="korttibutton1">Ota kortti</button>
-    <br>
-    <button id="alustabutton1">Alusta Pakka</button>
-    <br>
-    <button id="addplayer">Lisää pelaaja</button>
-    <br>
-    <button id="hideplayer" disabled>Poista pelaaja</button>
-    <br>
+    <div style="position: absolute; margin-top: 5px;">
+        <button style="font-size: 18px; padding: 8px 35px; margin-top: 40px;" class="myButton" id="korttibutton1">Ota kortti</button>
+        <button style="font-size: 18px; margin-left: 14px; padding: 8px 23px;" class="myButton" id="alustabutton1">Alusta Pakka</button>
+        <br>
+        <button style="font-size: 18px; margin-top: 10px;" class="myButton" id="addplayer">Lisää pelaaja</button>
+        <button style="font-size: 18px; margin-left: 10px;" class="myButton" id="hideplayer" disabled>Poista pelaaja</button>
+    </div>
+    
 
     <script>
 
@@ -106,7 +112,6 @@
 
                     rndnum2 = Math.random() * (cardamount2 - 1);
                     roundedrndnum2 = Math.round(rndnum2);
-
                     
                     cardamount2 = cardamount2 - 1;
 
@@ -115,14 +120,13 @@
 
                     rndnum3 = Math.random() * (cardamount3 - 1);
                     roundedrndnum3 = Math.round(rndnum3);
-
                     
                     cardamount3 = cardamount3 - 1;
 
                     document.getElementById("cardimg3").src = "/Card Deck/" + korttipakka3[roundedrndnum3] + ".png";
                     document.getElementById("cardimg3").alt = korttipakka2[roundedrndnum3] + ".png";
 
-                    checkDrinking(korttipakka1);
+                    checkDrinking();
 
                     korttipakka1.splice(roundedrndnum1, 1);
                     korttipakka2.splice(roundedrndnum2, 1);
@@ -169,7 +173,9 @@
                 cumldrinkamount2 = 0;
                 cumldrinkamount3 = 0;
 
-                document.getElementById("drinkresultlabel").innerHTML = " ";
+                document.getElementById("drinkresultlabel1").innerHTML = " ";
+                document.getElementById("drinkresultlabel2").innerHTML = " ";
+                document.getElementById("drinkresultlabel3").innerHTML = " ";
                 document.getElementById("cumldrinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " yhteensä: " + cumldrinkamount1;
                 document.getElementById("cumldrinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " yhteensä: " + cumldrinkamount2;
                 if (playeramount == 3)
@@ -280,11 +286,14 @@
 
                     document.getElementById("cumldrinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " yhteensä: " + cumldrinkamount1;
                     document.getElementById("cumldrinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " yhteensä: " + cumldrinkamount2;
-                    document.getElementById("drinkresultlabel").innerHTML = " ";
+                    document.getElementById("drinkresultlabel1").innerHTML = " ";
+                    document.getElementById("drinkresultlabel2").innerHTML = " ";
+                    document.getElementById("drinkresultlabel3").innerHTML = " ";
 
                     if (drinkamount1 != 0 || drinkamount2 != 0)
                     {
-                        document.getElementById("drinkresultlabel").innerHTML = document.getElementById("player1nick").value + " juo " + drinkamount1 + " kulausta ja " + document.getElementById("player2nick").value + " juo " + drinkamount2 + " kulausta";
+                        document.getElementById("drinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " juo " + drinkamount1 + " kulausta";
+                        document.getElementById("drinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " juo " + drinkamount2 + " kulausta";
                     }
                 } else if (playeramount == 3)
                 {
@@ -449,11 +458,15 @@
                     document.getElementById("cumldrinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " yhteensä: " + cumldrinkamount1;
                     document.getElementById("cumldrinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " yhteensä: " + cumldrinkamount2;
                     document.getElementById("cumldrinkresultlabel3").innerHTML = document.getElementById("player3nick").value + " yhteensä: " + cumldrinkamount3;
-                    document.getElementById("drinkresultlabel").innerHTML = " ";
+                    document.getElementById("drinkresultlabel1").innerHTML = " ";
+                    document.getElementById("drinkresultlabel2").innerHTML = " ";
+                    document.getElementById("drinkresultlabel3").innerHTML = " ";
 
                     if (drinkamount1 != 0 || drinkamount2 != 0 || drinkamount3 != 0)
                     {
-                        document.getElementById("drinkresultlabel").innerHTML = document.getElementById("player1nick").value + " juo " + drinkamount1 + " kulausta, " + document.getElementById("player2nick").value + " juo " + drinkamount2 + " kulausta ja " + document.getElementById("player3nick").value + " juo " + drinkamount3 + " kulausta";
+                        document.getElementById("drinkresultlabel1").innerHTML = document.getElementById("player1nick").value + " juo " + drinkamount1 + " kulausta";
+                        document.getElementById("drinkresultlabel2").innerHTML = document.getElementById("player2nick").value + " juo " + drinkamount2 + " kulausta";
+                        document.getElementById("drinkresultlabel3").innerHTML = document.getElementById("player3nick").value + " juo " + drinkamount3 + " kulausta";
                     }
                 }             
             };

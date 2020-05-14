@@ -3,9 +3,11 @@ const router = express.Router();
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const Pelaaja = require("../models/pelaaja");
 const Biljardi = require("../models/biljardi");
+    
 
 router.get("/", async (req, res) =>
 {
+
     const pelaajat = await Pelaaja.find({});
     const biljardipelit = await Biljardi.find({});
 

@@ -9,27 +9,20 @@
 </head>
 <body>
     <h3>Pelaajat</h3>
-
-    <% if (locals.errorMessage != null) { %>
-        <div><%= errorMessage %></div>
-      <% } %>
     
     <br>
 
-    <select id="pelaajabase" name="pelaajabase">
+        <div style="display: inline-flex;" class="select">
+            <select id="pelaajabase" name="pelaajabase">
+            <% pelaajat.forEach(element => { %>
+            <option label="<%= element.playerName %>" value="<%= element._id %>">
+            <% }) %>
+            </select>
+        </div>
 
-        <% pelaajat.forEach(element => { %>
-        <option label="<%= element.playerName %>" value="<%= element._id %>">
-        <% }) %>
-        
-    </select>
-
-    <button type="submit" id="okbutton">OK</button>
+        <button style="margin-left: 10px; margin-bottom: 10px;" type="submit" class="myButton" id=okbutton>OK</button>
 
 
-    <br>
-    <label>Statsit:</label>
-    <br>
     <br>
     <label id="statsfifamatches">Fifa Ottelut:</label>
     <br>
@@ -39,7 +32,7 @@
     <br>
     <label id="statsfifadraws">Tasapelit:</label>
     <br>
-    <label id="statsfifawinperc">Biljardi Voittoprosentti:</label>
+    <label id="statsfifawinperc">Fifa Voitto-%:</label>
     <br>
     <label id="statsbiljardiamatches">Biljardi Ottelut:</label>
     <br>
@@ -47,34 +40,33 @@
     <br>
     <label id="statsbiljardilosses">Biljardi Häviöt:</label>
     <br>
-    <label id="statsbiljardiwinperc">Biljardi Voittoprosentti:</label>
+    <label id="statsbiljardiwinperc">Biljardi Voitto-%:</label>
     <br>
 
 
     
-    <br>
-    <br>
-    <select id="pelaajavs1" name="pelaajavs1">
-
+    <h3 style="margin-top: 40px; margin-bottom: 5px;">Versus</h3>
+    <div style="display: inline-flex;" class="select">
+        <select id="pelaajavs1" name="pelaajavs1">
         <% pelaajat.forEach(element => { %>
-        <option label="<%= element.playerName %>" value="<%= element._id %>"><%= element.playerName %></option>
+            <option label="<%= element.playerName %>" value="<%= element._id %>"><%= element.playerName %></option>
         <% }) %>
-        
-    </select>
-    <label> VS </label>
-    <select id="pelaajavs2" name="pelaajavs2">
+        </select>
+    </div>
 
+
+    <label style="margin-left: 7px; margin-right: 7px;">VS</label>
+
+    <div style="display: inline-flex;" class="select">
+        <select id="pelaajavs2" name="pelaajavs2">
         <% pelaajat.forEach(element => { %>
-        <option label="<%= element.playerName %>" value="<%= element._id %>"><%= element.playerName %></option>
+            <option label="<%= element.playerName %>" value="<%= element._id %>"><%= element.playerName %></option>
         <% }) %>
-        
-    </select>
-    <button id="vsbutton">VS</button>
-
-
+        </select>
+    </div>
     <br>
-    <label>VS Statsit:</label>
-    <br>
+    <button style="margin-left: 112px; margin-top: 10px; margin-bottom: 10px;" type="submit" class="myButton" id="vsbutton">VS</button>
+
     <br>
     <label id="vsfifamatches">Fifa ottelut: </label>
     <br>
@@ -94,18 +86,11 @@
     <br>
     <br>
 
-    <label>Uusi pelaaja</label>
+    <h3 style="margin-top: 40px; margin-bottom: 5px;">Uusi pelaaja:</h3>
     <form action="pelaaja" method="POST">
-    
-        <input name="pelaajaname">
-        <button type="submit">OK</button>
-    
-    
+        <input class="inputtext" name="pelaajaname" maxlength="10" required>
+        <button style="margin-left: 10px;" type="submit" class="myButton" >OK</button>
     </form>
-
-    <% pelaajat.forEach(element => { %>
-        <div><%= element %></div>
-    <% })   %> 
 
     <script>
         $(function() {
@@ -124,11 +109,11 @@
                                 document.getElementById("statsfifawins").innerHTML = "Fifa Voitot: " + pelaaja.fifaWins;
                                 document.getElementById("statsfifalosses").innerHTML = "Fifa Häviöt: " + pelaaja.fifaLosses;
                                 document.getElementById("statsfifadraws").innerHTML = "Tasapelit: " + pelaaja.fifaDraws;
-                                document.getElementById("statsfifawinperc").innerHTML = "Fifa Voittoprosentti: " + (pelaaja.fifaWinPerc * 100).toFixed(0) + "%";
+                                document.getElementById("statsfifawinperc").innerHTML = "Fifa Voitto-%: " + (pelaaja.fifaWinPerc * 100).toFixed(0) + "%";
                                 document.getElementById("statsbiljardiamatches").innerHTML = "Biljardi Ottelut: " + (pelaaja.biljardiWins + pelaaja.biljardiLosses)
                                 document.getElementById("statsbiljardiwins").innerHTML = "Biljardi Voitot: " + pelaaja.biljardiWins;
                                 document.getElementById("statsbiljardilosses").innerHTML = "Biljardi Häviöt: " + pelaaja.biljardiLosses;
-                                document.getElementById("statsbiljardiwinperc").innerHTML = "Biljardi Voittoprosentti: " + (pelaaja.biljardiWinPerc * 100).toFixed(0) + "%";
+                                document.getElementById("statsbiljardiwinperc").innerHTML = "Biljardi Voitto-%: " + (pelaaja.biljardiWinPerc * 100).toFixed(0) + "%";
                             })
                         }          
                 });
@@ -164,7 +149,12 @@
                             var biljardiplayer2perc = ((biljardiplayer2wins / biljardimatches) * 100).toFixed(0);
                             var biljardiplayer2lumierat = biljardisresults.filter(function(val) {return val.winner ===  document.getElementById("pelaajavs2").options[document.getElementById("pelaajavs2").selectedIndex].text;}).filter(function(val) {return val.lumierat === true}).length;
 
-
+                            if(isNaN(fifaplayer1perc)) fifaplayer1perc = 0;
+                            if(isNaN(fifaplayer2perc)) fifaplayer2perc = 0;
+                            if(isNaN(fifadrawsperc)) fifadrawsperc = 0;
+                            if(isNaN(biljardiplayer1perc)) biljardiplayer1perc = 0;
+                            if(isNaN(biljardiplayer2perc)) biljardiplayer2perc = 0;
+                            
                             document.getElementById("vsfifamatches").innerHTML = "Fifa ottelut: " + fifamatches;
                             document.getElementById("vsfifaplayer1wins").innerHTML = document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text + " voitot: " + fifaplayer1wins + ", (" + fifaplayer1perc + "%), Lumierät: " + fifaplayer1lumierat;
                             document.getElementById("vsfifaplayer2wins").innerHTML = document.getElementById("pelaajavs2").options[document.getElementById("pelaajavs2").selectedIndex].text + " voitot: " + fifaplayer2wins + ", (" + fifaplayer2perc + "%), Lumierät: " + fifaplayer2lumierat;

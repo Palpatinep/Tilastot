@@ -23,6 +23,11 @@
     </nav>
 
     <div class="wrapperbody">
+
+        <% if (locals.errorMessage != null) { %>
+            <div class="errorMessage" ><%= errorMessage %></div>
+          <% } %>
+
         <%- body %>
     </div>
 </html>
