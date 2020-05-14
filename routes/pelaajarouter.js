@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Pelaaja = require("../models/pelaaja");
 const Fifa = require("../models/fifa");
+const Biljardi = require("../models/biljardi");
 
 router.get("/", async (req, res) =>
 {
@@ -34,7 +35,10 @@ router.post("/", async (req, res) =>
                 playerName: req.body.pelaajaname,
                 fifaWins: 0,
                 fifaLosses: 0,
-                fifaDraws: 0
+                fifaDraws: 0,
+                fifaWinPerc: 0,
+                biljardiWins: 0,
+                biljardiLosses: 0
             });
         
             try
@@ -80,12 +84,26 @@ router.get("/vs/:id1/:id2", async (req, res) =>
     console.log(pelaaja1)
     console.log(pelaaja2)
 
-    const fifasresults = await Fifa.find({pelaajaHome: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, pelaajaAway: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}}).exec()
-    .then(doc => 
-        {
-            console.log(doc)
-            res.status(200).json(doc);
-        });
+    // const fifasresults = await Fifa.find({pelaajaHome: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, pelaajaAway: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}}).exec()
+    // .then(doc => 
+    //     {
+    //         console.log(doc)
+    //         res.status(200).json(doc);
+    //     });
+
+    const fifasresults = await Fifa.find({pelaajaHome: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, pelaajaAway: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}})
+    const biljardiresults = await Biljardi.find({winner: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, loser: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}})
+
+    const resultsall = fifasresults.concat(biljardiresults);
+
+    console.log("AAAAAAAAAA")
+    console.log(fifasresults)
+    console.log("BBBBBBBBBBBB")
+    console.log(biljardiresults)
+    console.log("CCCCCCCCCCCC")
+    console.log(resultsall)
+    res.status(200).json(resultsall);
+
 
     res.redirect("/pelaaja");
 })

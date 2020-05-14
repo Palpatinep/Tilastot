@@ -38,7 +38,15 @@
     <br>
     <label id="statsfifadraws">Tasapelit:</label>
     <br>
-    <label id="statswinperc">Voittoprosentti:</label>
+    <label id="statsfifawinperc">Biljardi Voittoprosentti:</label>
+    <br>
+    <label id="statsbiljardiamatches">Biljardi Ottelut:</label>
+    <br>
+    <label id="statsbiljardiwins">Biljardi Voitot:</label>
+    <br>
+    <label id="statsbiljardilosses">Biljardi Häviöt:</label>
+    <br>
+    <label id="statsbiljardiwinperc">Biljardi Voittoprosentti:</label>
     <br>
 
 
@@ -75,6 +83,11 @@
     <br>
     <label id="vsfifadraws">Tasapelit:</label>
     <br>
+    <label id="vsbiljardimatches">Biljardi ottelut: </label>
+    <br>
+    <label id="vsbiljardiplayer1wins">Pelaaja 1 voitot:</label>
+    <br>
+    <label id="vsbiljardiplayer2wins">Pelaaja 2 voitot:</label>
     <br>
     <br>
     <br>
@@ -110,8 +123,10 @@
                                 document.getElementById("statsfifawins").innerHTML = "Fifa Voitot: " + pelaaja.fifaWins;
                                 document.getElementById("statsfifalosses").innerHTML = "Fifa Häviöt: " + pelaaja.fifaLosses;
                                 document.getElementById("statsfifadraws").innerHTML = "Tasapelit: " + pelaaja.fifaDraws;
-                                document.getElementById("statswinperc").innerHTML = "Voittoprosentti: " + (pelaaja.fifaWinPerc * 100).toFixed(0) + "%";
-                                
+                                document.getElementById("statsfifawinperc").innerHTML = "Fifa Voittoprosentti: " + (pelaaja.fifaWinPerc * 100).toFixed(0) + "%";
+                                document.getElementById("statsbiljardiamatches").innerHTML = "Biljardi Ottelut: " + (pelaaja.biljardiWins + pelaaja.biljardiLosses)
+                                document.getElementById("statsbiljardiwins").innerHTML = "Biljardi Voitot: " + pelaaja.biljardiWins;
+                                document.getElementById("statsbiljardilosses").innerHTML = "Biljardi Häviöt: " + pelaaja.biljardiLosses;
                             })
                         }          
                 });
@@ -124,8 +139,11 @@
                         type: "GET",
                         url: "/pelaaja/vs/" + document.getElementById("pelaajavs1").value + "/" + document.getElementById("pelaajavs2").value,
                         datatype: "json",
-                        success: function(fifasresults)
+                        success: function(results)
                         {
+                            var fifasresults = results.filter(function(val) {return val.game === "Fifa"});
+                            var biljardisresults = results.filter(function(val) {return val.game === "Biljardi"});
+
                             var fifamatches = fifasresults.length;
                             var fifaplayer1wins = fifasresults.filter(function(val) {return val.winner ===  document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text;}).length;
                             var fifaplayer1perc = ((fifaplayer1wins / fifamatches) * 100).toFixed(0);
@@ -136,10 +154,23 @@
                             var fifadraws = fifasresults.filter(function(val) {return val.drawnplayerhome ===  document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text;}).length + fifasresults.filter(function(val) {return val.drawnplayeraway ===  document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text;}).length;
                             var fifadrawsperc = ((fifadraws / fifamatches) * 100).toFixed(0);
 
+                            var biljardimatches = biljardisresults.length;
+                            var biljardiplayer1wins = biljardisresults.filter(function(val) {return val.winner ===  document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text;}).length;
+                            var biljardiplayer1perc = ((biljardiplayer1wins / biljardimatches) * 100).toFixed(0);
+                            var biljardiplayer1lumierat = biljardisresults.filter(function(val) {return val.winner ===  document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text;}).filter(function(val) {return val.lumierat === true}).length;
+                            var biljardiplayer2wins = biljardisresults.filter(function(val) {return val.winner ===  document.getElementById("pelaajavs2").options[document.getElementById("pelaajavs2").selectedIndex].text;}).length;
+                            var biljardiplayer2perc = ((biljardiplayer2wins / biljardimatches) * 100).toFixed(0);
+                            var biljardiplayer2lumierat = biljardisresults.filter(function(val) {return val.winner ===  document.getElementById("pelaajavs2").options[document.getElementById("pelaajavs2").selectedIndex].text;}).filter(function(val) {return val.lumierat === true}).length;
+
+
                             document.getElementById("vsfifamatches").innerHTML = "Fifa ottelut: " + fifamatches;
                             document.getElementById("vsfifaplayer1wins").innerHTML = document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text + " voitot: " + fifaplayer1wins + ", (" + fifaplayer1perc + "%), Lumierät: " + fifaplayer1lumierat;
                             document.getElementById("vsfifaplayer2wins").innerHTML = document.getElementById("pelaajavs2").options[document.getElementById("pelaajavs2").selectedIndex].text + " voitot: " + fifaplayer2wins + ", (" + fifaplayer2perc + "%), Lumierät: " + fifaplayer2lumierat;
                             document.getElementById("vsfifadraws").innerHTML = "Tasapelit: " + fifadraws + ", (" + fifadrawsperc + "%)";
+
+                            document.getElementById("vsbiljardimatches").innerHTML = "Biljardi ottelut: " + fifamatches;
+                            document.getElementById("vsbiljardiplayer1wins").innerHTML = document.getElementById("pelaajavs1").options[document.getElementById("pelaajavs1").selectedIndex].text + " voitot: " + biljardiplayer1wins + ", (" + biljardiplayer1perc + "%), Lumierät: " + biljardiplayer1lumierat;
+                            document.getElementById("vsbiljardiplayer2wins").innerHTML = document.getElementById("pelaajavs2").options[document.getElementById("pelaajavs2").selectedIndex].text + " voitot: " + biljardiplayer2wins + ", (" + biljardiplayer2perc + "%), Lumierät: " + biljardiplayer2lumierat;
                         }
                     })
                 }

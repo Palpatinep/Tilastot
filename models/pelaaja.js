@@ -25,6 +25,15 @@ const pelaajaSchema = new mongoose.Schema({
     biljardiWins:{
         type: Number,
         required: false
+    },
+    biljardiLosses:{
+        type: Number,
+        required: false
+    },
+    biljardiWinPerc:
+    {
+        type: Number,
+        required: false
     }
 });
 

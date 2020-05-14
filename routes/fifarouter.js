@@ -122,6 +122,7 @@ router.post("/", async (req, res) =>
 
         const fifaResult = new Fifa(
             {
+                game: "Fifa",
                 resultHome: req.body.fifaresulthome,
                 resultAway: req.body.fifaresultaway,
                 pelaajaHome: req.body.pelaajahome,
@@ -136,7 +137,7 @@ router.post("/", async (req, res) =>
         );
         try
         {
-            const newFifaResult = await fifaResult.save();
+            await fifaResult.save();
 
             res.redirect("/fifa");
         }

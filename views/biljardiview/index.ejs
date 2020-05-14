@@ -16,33 +16,39 @@
     <form action="biljardi" method="POST">
 
         <% try { %>
-            <label>Pelaaja 1</label>
-            <select name="pelaajahome">
+            <label>Voittaja: </label>
+            <select name="winner">
             <% pelaaja.forEach(element => { %>
             <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             </select>
-            <input type="radio" id="biljardiresulthome" name="biljardiresult" checked>
         <% } catch (error) { %>
             <% return true; %>
         <% } %>
 
         <% try { %>
-            <label>Pelaaja 2</label>
-            <select name="pelaajaaway">
+            <label>Häviäjä: </label>
+            <select name="loser">
             <% pelaaja.forEach(element => { %>
             <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             </select>
-            <input type="radio" id="biljardiresultaway" name="biljardiresult">
         <% } catch (error) { %>
             <% return true; %>
         <% } %>
         <label>Lumierät: </label>
-    <input type="checkbox" id="biljardilumieracheckbox">
+    <input type="checkbox" name="biljardilumieracheckbox" value="true">
     <button type="submit">OK</button>
     </form>
     <br>
+
+<label>Aikaisempien pelien tulokset:</label>
+<br>
+<br>
+
+        <% biljardipelit.forEach(element => { %>
+            <div>Voittaja: <%= element.winner %>, Häviäjä: <%= element.loser %>, Lumierät: <%= element.lumierat %>, Ajankohta: <%= element.MatchDate %></div>
+          <% }) %>
 
 
 </body>
