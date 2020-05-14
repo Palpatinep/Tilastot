@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One&display=swap" rel="stylesheet">
     <title>Document</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-    <h1>Pelaajat</h1>
+    <h3>Pelaajat</h3>
 
     <% if (locals.errorMessage != null) { %>
         <div><%= errorMessage %></div>
@@ -127,6 +128,7 @@
                                 document.getElementById("statsbiljardiamatches").innerHTML = "Biljardi Ottelut: " + (pelaaja.biljardiWins + pelaaja.biljardiLosses)
                                 document.getElementById("statsbiljardiwins").innerHTML = "Biljardi Voitot: " + pelaaja.biljardiWins;
                                 document.getElementById("statsbiljardilosses").innerHTML = "Biljardi Häviöt: " + pelaaja.biljardiLosses;
+                                document.getElementById("statsbiljardiwinperc").innerHTML = "Biljardi Voittoprosentti: " + (pelaaja.biljardiWinPerc * 100).toFixed(0) + "%";
                             })
                         }          
                 });

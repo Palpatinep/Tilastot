@@ -1,55 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AJAX</title>
+    <title>Biljardi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Biljardi tilastot</h1>
+    <h3>Biljardi tilastot</h3>
 
     <% if (locals.errorMessage != null) { %>
         <div><%= errorMessage %></div>
       <% } %>
       
-    <label>Pelin tulos</label>
+    <p style="margin-bottom: 20px;">Pelin tulos:</p>
     <form action="biljardi" method="POST">
 
-        <% try { %>
+        <div class="optionclass" style="width: 200px;">
             <label>Voittaja: </label>
             <select name="winner">
             <% pelaaja.forEach(element => { %>
             <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             </select>
-        <% } catch (error) { %>
-            <% return true; %>
-        <% } %>
-
-        <% try { %>
+        </div>
+        
+        <div>
             <label>Häviäjä: </label>
             <select name="loser">
             <% pelaaja.forEach(element => { %>
             <option label=" <%= element.playerName %>" value="<%= element.playerName %>">
             <% }) %>
             </select>
-        <% } catch (error) { %>
-            <% return true; %>
-        <% } %>
-        <label>Lumierät: </label>
+        </div>
+
+            
+
+        <label>Lumierät:</label>
     <input type="checkbox" name="biljardilumieracheckbox" value="true">
     <button type="submit">OK</button>
     </form>
-    <br>
 
-<label>Aikaisempien pelien tulokset:</label>
-<br>
-<br>
+<h3 style="margin-top: 50px;" >Aikaisempien pelien tulokset:</h3>
 
         <% biljardipelit.forEach(element => { %>
-            <div>Voittaja: <%= element.winner %>, Häviäjä: <%= element.loser %>, Lumierät: <%= element.lumierat %>, Ajankohta: <%= element.MatchDate %></div>
+            <p>Voittaja: <%= element.winner %>, Häviäjä: <%= element.loser %>, Lumierät: <%= element.lumierat %>, Ajankohta: <%= element.MatchDate %></p>
           <% }) %>
-
 
 </body>
 </html>

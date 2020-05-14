@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(237, 244, 248);
+}
+h1{
+    color: rgb(63, 40, 212);
+    background-color:  rgb(255, 255, 255);
+    font-family: 'Passion One';
+    padding-left: 10px;
+    font-weight: 100;
+    font-size: 60px;
+    cursor: default;
+}
+h3{
+    color: rgb(63, 40, 212);
+    font-family: 'Catamaran', sans-serif;
+    font-size: 25px;
+}
+a{
+    color: rgb(43, 110, 177);
+    display: inline-block;
+    padding: 0 5px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Catamaran', sans-serif;
+    text-decoration: none;
+    line-height: 50px;
+    /* border-color: black;
+    border-width: 1px;
+    border-style: solid; */
+}
+a:hover{
+    color: rgb(97, 176, 255);
+}
+p{
+    color: rgb(63, 40, 212);
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 20;
+    font-size: 20px;
+    line-height: 35px;
+}
+label{
+    color: rgb(63, 40, 212);
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 10;
+    font-size: 20px;
+    line-height: 25px;
+}
+nav{
+    background-color: rgb(255, 255, 255);
+}
+.wrapper{
+    font-size: 0px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.wrapperbody{
+    font-size: 0px;
+    width: 95%;
+    margin: 10px auto;
+    /* border-style: solid;
+    border-color: black;
+    border-width: 2px; */
+}
+div{
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Catamaran', sans-serif;
+}
+
+
+
+@media only screen and (min-width: 768px)
+{
+
+}
