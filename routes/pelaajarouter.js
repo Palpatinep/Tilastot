@@ -17,9 +17,31 @@ router.get("/", async (req, res) =>
 
 router.post("/", async (req, res) =>
 {
+    const pelaajat = await Pelaaja.find({});
+    var playernickmatch = false; 
+
+    pelaajat.forEach(element => {
+        if (req.body.pelaajaname == element.playerName)
+        {
+            playernickmatch = true;
+        }
+    });
+
+    console.log("AAAAAAAAAAAAAAAAAAAAAA" + playernickmatch);
+
+    if(playernickmatch == true)
+    {
+        var errorMessage = "Pelaajanimi on jo olemassa";
+
+        res.render("pelaajaview/index",
+        {
+            pelaajat: pelaajat,
+            errorMessage: errorMessage
+        })
+    }
+
     if(req.body.pelaajaname.length < 1)
     {
-        const pelaajat = await Pelaaja.find({});
         var errorMessage = "Virheellinen syöte";
         
         res.render("pelaajaview/index",
@@ -28,6 +50,7 @@ router.post("/", async (req, res) =>
             errorMessage: errorMessage
         })
     }
+
     else
     {
         const newPelaaja = new Pelaaja(
@@ -55,7 +78,6 @@ router.post("/", async (req, res) =>
             }
     } 
 });
-
 
 router.get("/:id", async (req, res) =>
 {
@@ -85,24 +107,11 @@ router.get("/vs/:id1/:id2", async (req, res) =>
     console.log(pelaaja1)
     console.log(pelaaja2)
 
-    // const fifasresults = await Fifa.find({pelaajaHome: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, pelaajaAway: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}}).exec()
-    // .then(doc => 
-    //     {
-    //         console.log(doc)
-    //         res.status(200).json(doc);
-    //     });
-
     const fifasresults = await Fifa.find({pelaajaHome: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, pelaajaAway: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}})
     const biljardiresults = await Biljardi.find({winner: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}, loser: { "$in": [pelaaja1[0].playerName, pelaaja2[0].playerName]}})
 
     const resultsall = fifasresults.concat(biljardiresults);
 
-    console.log("AAAAAAAAAA")
-    console.log(fifasresults)
-    console.log("BBBBBBBBBBBB")
-    console.log(biljardiresults)
-    console.log("CCCCCCCCCCCC")
-    console.log(resultsall)
     res.status(200).json(resultsall);
 
 

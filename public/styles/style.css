@@ -116,9 +116,29 @@ nav{
 
 
 
-@media only screen and (min-width: 768px)
+@media only screen and (min-width: 1000px)
 {
-
+  .wrapper{
+    font-size: 0px;
+    width: 50%;
+    margin: 0 auto;
+  }
+  .wrapperbody{
+    font-size: 0px;
+    width: 50%;
+    margin: 10px auto;
+    /* border-style: solid;
+    border-color: black;
+    border-width: 2px; */
+  }
+  h3{
+    font-size: 35px;
+  }
+  p{
+    font-weight: 20;
+    font-size: 25px;
+    line-height: 35px;
+  }
 }
 
 
